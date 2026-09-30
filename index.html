@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B2420">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Ponto de Campo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF0EC; --card:#FFFFFF; --ink:#1B2420; --muted:#5A6560; --line:#CBD1CA;
+  --sinal:#F2B705; --verde:#1E6B45; --ferrugem:#A2401F; --faixa:#1B2420;
+  --txt:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --cond:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#141A17;--card:#1D2521;--ink:#E9EDE8;--muted:#9AA59F;--line:#33403A;--verde:#3FA474;--ferrugem:#D9693F;--faixa:#0C110E}
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--txt);font-size:17px;line-height:1.45}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--sinal);outline-offset:2px}
+[hidden]{display:none!important}
+
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--faixa);color:#F4F6F2;padding:10px 16px;border-bottom:4px solid var(--sinal)}
+.marca{font-family:var(--cond);font-weight:700;font-size:1.35rem;letter-spacing:.01em}
+.status{border:1px solid rgba(255,255,255,.25);background:transparent;color:#F4F6F2;border-radius:6px;padding:6px 10px;text-align:right;line-height:1.15;min-height:44px}
+.status b{display:block;font-weight:600;font-size:.95rem}
+.status small{font-size:.78rem;opacity:.8}
+.status.pend{border-color:var(--sinal)}
+.status.pend b{color:var(--sinal)}
+
+main{max-width:560px;margin:0 auto;padding:16px 16px 110px}
+h2{font-family:var(--cond);font-weight:700;font-size:1.6rem;margin:20px 0 10px;line-height:1.1}
+
+.placa{background:var(--sinal);color:#1B2420;border-radius:8px;padding:14px 18px 12px;box-shadow:inset 0 0 0 3px #1B2420, inset 0 0 0 6px var(--sinal)}
+.placa .hora{font-family:var(--cond);font-weight:700;font-size:4.2rem;line-height:1;font-variant-numeric:tabular-nums}
+.placa .data{font-weight:600;text-transform:none;margin-top:4px}
+
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.item{width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-height:64px;display:flex;flex-direction:column;justify-content:center}
+.item:active{transform:scale(.99)}
+.item .nome{font-weight:600;font-size:1.1rem}
+.item .sub{color:var(--muted);font-size:.9rem}
+.item .tag{font-size:.8rem;font-weight:600}
+.item .tag.ok{color:var(--verde)}
+.item .tag.pd{color:var(--ferrugem)}
+
+.aviso{background:var(--card);border-left:5px solid var(--sinal);padding:12px 14px;border-radius:4px}
+.erro{color:var(--ferrugem);font-weight:600}
+label{display:block;font-weight:600;margin:14px 0 6px}
+input[type=password],input[type=text],textarea{width:100%;background:var(--card);border:2px solid var(--line);border-radius:8px;padding:12px 14px}
+input#pin{font-size:1.8rem;letter-spacing:.35em;text-align:center}
+textarea{min-height:64px;resize:vertical}
+
+.btn{display:block;width:100%;border:0;border-radius:8px;padding:14px 16px;min-height:56px;font-weight:600;font-size:1.05rem;margin-top:12px}
+.btn.primario{background:var(--ink);color:var(--bg)}
+.btn.sec{background:transparent;border:2px solid var(--line)}
+.btn.voltar{background:transparent;border:0;padding:8px 0;min-height:44px;width:auto;margin:0;color:var(--muted)}
+
+.tipos{display:grid;gap:10px;margin-top:6px}
+.tipo{border:2px solid var(--line);background:var(--card);border-radius:8px;min-height:70px;padding:12px 16px;text-align:left;font-family:var(--cond);font-weight:700;font-size:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tipo small{font-family:var(--txt);font-weight:600;font-size:.8rem;color:var(--muted)}
+.tipo.sug{border-color:var(--ink);box-shadow:inset 6px 0 0 var(--sinal)}
+.tipo.sug small{color:var(--ink)}
+
+.gps{text-align:center;padding-top:24px}
+.gps .alvo{width:120px;height:120px;margin:0 auto 14px;border-radius:50%;border:4px solid var(--sinal);position:relative}
+.gps .alvo::after{content:"";position:absolute;inset:40px;border-radius:50%;background:var(--sinal)}
+@media (prefers-reduced-motion:no-preference){.gps .alvo{animation:pulso 1.6s ease-in-out infinite}}
+@keyframes pulso{50%{transform:scale(.9);opacity:.7}}
+.gps .prec{font-family:var(--cond);font-weight:700;font-size:1.7rem}
+.gps .seg{color:var(--muted)}
+
+.comp{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.comp .cab{background:var(--verde);color:#fff;padding:14px 16px;font-family:var(--cond);font-weight:700;font-size:1.5rem}
+.comp dl{margin:0;padding:6px 16px 12px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.comp dt{color:var(--muted)}
+.comp dd{margin:0;font-weight:600;overflow-wrap:anywhere}
+.comp .nota{padding:0 16px 14px;color:var(--muted);font-size:.92rem}
+
+.rodape{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;justify-content:center}
+.rodape .btn{margin:0;max-width:270px;min-height:50px}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font-weight:600;max-width:90%}
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="marca">Ponto de Campo</div>
+  <button id="bt-status" class="status" type="button" aria-live="polite"><b id="st-a">…</b><small id="st-b"></small></button>
+</header>
+
+<main>
+  <section id="v-equipe" class="vista">
+    <div class="placa" aria-live="off"><div class="hora" id="rel-hora">--:--</div><div class="data" id="rel-data"></div></div>
+    <p id="nao-config" class="aviso" hidden>O app ainda não foi configurado. O responsável precisa informar o endereço da planilha no arquivo index.html (veja o guia de instalação).</p>
+    <h2>Quem vai registrar?</h2>
+    <ul id="lista-equipe" class="lista"></ul>
+    <p id="equipe-vazia" class="aviso" hidden>A lista da equipe ainda não foi baixada neste aparelho. Conecte à internet uma vez e toque em “Enviar agora”.</p>
+  </section>
+
+  <section id="v-pin" class="vista" hidden>
+    <button class="btn voltar" data-voltar type="button">Voltar</button>
+    <h2 id="pin-nome"></h2>
+    <label for="pin">Digite seu PIN</label>
+    <input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12">
+    <p id="pin-erro" class="erro" hidden>PIN incorreto. Confira com o responsável pela equipe.</p>
+    <button id="bt-pin" class="btn primario" type="button">Confirmar</button>
+  </section>
+
+  <section id="v-tipo" class="vista" hidden>
+    <button class="btn voltar" data-voltar type="button">Voltar</button>
+    <h2 id="tipo-nome"></h2>
+    <label for="obs">Local ou observação (opcional)</label>
+    <textarea id="obs" maxlength="200" placeholder="Ex.: obra da Rua A, trecho da drenagem"></textarea>
+    <label>O que você está registrando?</label>
+    <div class="tipos" id="tipos"></div>
+  </section>
+
+  <section id="v-gps" class="vista gps" hidden>
+    <div class="alvo" aria-hidden="true"></div>
+    <div class="prec" id="gps-prec">Aguardando o primeiro sinal</div>
+    <p class="seg" id="gps-msg">Procurando sinal de GPS. Fique em local aberto, longe de telhado ou laje.</p>
+    <p class="seg" id="gps-tempo">0 s</p>
+    <button id="bt-gps-agora" class="btn primario" type="button" hidden>Registrar com esta precisão</button>
+    <button id="bt-gps-sem" class="btn sec" type="button" hidden>Registrar sem localização</button>
+    <button id="bt-gps-cancelar" class="btn voltar" type="button">Cancelar</button>
+  </section>
+
+  <section id="v-ok" class="vista" hidden>
+    <div class="comp">
+      <div class="cab" id="ok-tipo"></div>
+      <dl>
+        <dt>Colaborador</dt><dd id="ok-nome"></dd>
+        <dt>Data e hora</dt><dd id="ok-hora"></dd>
+        <dt>Local</dt><dd id="ok-local"></dd>
+        <dt>Código</dt><dd id="ok-cod"></dd>
+      </dl>
+      <p class="nota" id="ok-nota"></p>
+    </div>
+    <button id="bt-ok" class="btn primario" type="button">Concluir</button>
+  </section>
+
+  <section id="v-hist" class="vista" hidden>
+    <button class="btn voltar" data-voltar type="button">Voltar</button>
+    <h2>Registros neste aparelho</h2>
+    <ul id="lista-hist" class="lista"></ul>
+    <p id="hist-vazio" class="aviso" hidden>Nenhum registro feito neste aparelho ainda.</p>
+    <button id="bt-exportar" class="btn sec" type="button">Exportar backup (planilha CSV)</button>
+  </section>
+</main>
+
+<nav class="rodape">
+  <button id="bt-enviar" class="btn sec" type="button">Enviar agora</button>
+  <button id="bt-hist" class="btn sec" type="button">Histórico</button>
+</nav>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ====== CONFIGURAÇÃO — o responsável preenche antes de publicar ====== */
+const CONFIG = {
+  API_URL: 'https://script.google.com/macros/s/AKfycbzzNMzrz0DjrXYQ7Fog5RlXCuOeYL11nTI8eXJ1mvEXr_hX3AKtwLxMos9TGicc4PZt/exec',   // termina em /exec
+  TOKEN:   'pc-q8Rt2wLx-Bz47'                // o mesmo código usado no Apps Script
+};
+/* ===================================================================== */
+
+const K = {team:'pc_equipe', queue:'pc_fila', hist:'pc_hist', dev:'pc_aparelho', seq:'pc_seq', last:'pc_ultima', sync:'pc_ultimo_envio'};
+const TIPOS = [
+  {id:'entrada', nome:'Entrada'},
+  {id:'saida_intervalo', nome:'Saída para intervalo'},
+  {id:'retorno_intervalo', nome:'Retorno do intervalo'},
+  {id:'saida', nome:'Saída'}
+];
+const $ = s => document.querySelector(s);
+let atual = null, tipoSel = null, watchId = null, melhor = null, gpsTimer = null, gpsInicio = 0, negado = false, registrando = false;
+let enviando = false, falhou = false, volta = 'v-equipe';
+
+function ler(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
+function gravar(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+function uid(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random()*16|0; return (c==='x' ? r : (r&3|8)).toString(16); });
+}
+function aparelho(){ let d = ler(K.dev, null); if(!d){ d = uid().slice(0,8); gravar(K.dev, d); } return d; }
+async function sha256(s){
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join('');
+}
+const hora = d => d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+const dataCurta = d => d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
+const completo = d => d.toLocaleString('pt-BR');
+const nomeTipo = id => (TIPOS.find(t => t.id === id) || {nome:id}).nome;
+const mesmoDia = (a, b) => a.toDateString() === b.toDateString();
+const configurado = () => /^https:\/\//.test(CONFIG.API_URL);
+
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => t.hidden = true, 2600); }
+function ver(id){ document.querySelectorAll('.vista').forEach(s => s.hidden = s.id !== id); window.scrollTo(0,0); }
+
+/* ---------- relógio ---------- */
+function tique(){ const d = new Date(); $('#rel-hora').textContent = hora(d); const t = d.toLocaleDateString('pt-BR',{weekday:'long', day:'2-digit', month:'long'}); $('#rel-data').textContent = t.charAt(0).toUpperCase() + t.slice(1); }
+
+/* ---------- equipe ---------- */
+function ultimaDe(id){ const h = ler(K.hist, []); for (let i = h.length-1; i >= 0; i--) if (h[i].colabId === id) return h[i]; return null; }
+function renderEquipe(){
+  const eq = ler(K.team, []), ul = $('#lista-equipe'); ul.textContent = '';
+  $('#equipe-vazia').hidden = eq.length > 0;
+  $('#nao-config').hidden = configurado();
+  const hoje = new Date();
+  eq.forEach(c => {
+    const li = document.createElement('li'), b = document.createElement('button');
+    b.type = 'button'; b.className = 'item';
+    const n = document.createElement('span'); n.className = 'nome'; n.textContent = c.nome;
+    const s = document.createElement('span'); s.className = 'sub';
+    const u = ultimaDe(c.id);
+    if (u){ const d = new Date(u.horaAparelho); s.textContent = 'Último: ' + nomeTipo(u.tipo) + ' às ' + hora(d) + (mesmoDia(d, hoje) ? '' : ' de ' + dataCurta(d)); }
+    else s.textContent = 'Sem registro neste aparelho';
+    b.append(n, s); b.addEventListener('click', () => abrirPin(c));
+    li.append(b); ul.append(li);
+  });
+}
+async function baixarEquipe(){
+  if (!configurado()) return;
+  try{
+    const r = await fetch(CONFIG.API_URL + '?acao=equipe&token=' + encodeURIComponent(CONFIG.TOKEN), {cache:'no-store'});
+    const j = await r.json();
+    if (j.ok && Array.isArray(j.equipe)){ gravar(K.team, j.equipe); renderEquipe(); }
+  }catch(e){ /* sem conexão: usa a lista guardada */ }
+}
+
+/* ---------- PIN ---------- */
+function abrirPin(c){ atual = c; $('#pin-nome').textContent = c.nome; $('#pin').value = ''; $('#pin-erro').hidden = true; volta = 'v-equipe'; ver('v-pin'); setTimeout(() => $('#pin').focus(), 50); }
+async function confirmarPin(){
+  const pin = $('#pin').value.trim(); if (!pin) return;
+  const h = await sha256(atual.id + ':' + pin);
+  if (h !== atual.pinHash){ $('#pin-erro').hidden = false; $('#pin').value = ''; $('#pin').focus(); return; }
+  abrirTipo();
+}
+
+/* ---------- tipo ---------- */
+function abrirTipo(){
+  $('#tipo-nome').textContent = atual.nome; $('#obs').value = '';
+  const u = ultimaDe(atual.id);
+  let sug = 'entrada';
+  if (u && mesmoDia(new Date(u.horaAparelho), new Date())){ const i = TIPOS.findIndex(t => t.id === u.tipo); sug = TIPOS[(i + 1) % TIPOS.length].id; }
+  const box = $('#tipos'); box.textContent = '';
+  TIPOS.forEach(t => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'tipo' + (t.id === sug ? ' sug' : '');
+    b.append(document.createTextNode(t.nome));
+    if (t.id === sug){ const s = document.createElement('small'); s.textContent = 'Próximo esperado'; b.append(s); }
+    b.addEventListener('click', () => { tipoSel = t.id; iniciarGps(); });
+    box.append(b);
+  });
+  volta = 'v-equipe'; ver('v-tipo');
+}
+
+/* ---------- GPS ---------- */
+function iniciarGps(){
+  ver('v-gps'); melhor = null; negado = false; registrando = false; gpsInicio = Date.now();
+  $('#gps-msg').textContent = 'Procurando sinal de GPS. Fique em local aberto, longe de telhado ou laje.';
+  atualizarGps();
+  if (!('geolocation' in navigator)){ negado = true; $('#gps-msg').textContent = 'Este aparelho não oferece localização.'; atualizarGps(); return; }
+  watchId = navigator.geolocation.watchPosition(p => {
+    if (!melhor || p.coords.accuracy < melhor.coords.accuracy) melhor = p;
+    atualizarGps();
+    if (melhor.coords.accuracy <= 25) registrar(melhor);
+  }, err => {
+    if (err.code === 1){ negado = true; $('#gps-msg').textContent = 'A localização está bloqueada. Permita o acesso à localização nas configurações do navegador e ative o GPS do aparelho.'; }
+    atualizarGps();
+  }, {enableHighAccuracy:true, maximumAge:0, timeout:120000});
+  gpsTimer = setInterval(atualizarGps, 1000);
+}
+function pararGps(){ if (watchId !== null) navigator.geolocation.clearWatch(watchId); watchId = null; clearInterval(gpsTimer); }
+function atualizarGps(){
+  const seg = Math.floor((Date.now() - gpsInicio) / 1000);
+  $('#gps-tempo').textContent = 'Tempo de busca: ' + seg + ' s';
+  if (melhor){ $('#gps-prec').textContent = 'Precisão: ' + Math.round(melhor.coords.accuracy) + ' m'; $('#bt-gps-agora').hidden = false; }
+  else { $('#gps-prec').textContent = 'Aguardando o primeiro sinal'; $('#bt-gps-agora').hidden = true; }
+  $('#bt-gps-sem').hidden = !(negado || (!melhor && seg >= 45));
+}
+
+/* ---------- registro ---------- */
+function registrar(pos){
+  if (registrando) return; registrando = true; pararGps();
+  const agora = new Date(), ult = ler(K.last, 0), seq = ler(K.seq, 0) + 1;
+  const m = {
+    id: uid(), colabId: atual.id, colabNome: atual.nome, tipo: tipoSel,
+    horaAparelho: agora.toISOString(),
+    lat: pos ? +pos.coords.latitude.toFixed(6) : null,
+    lng: pos ? +pos.coords.longitude.toFixed(6) : null,
+    precisao: pos ? Math.round(pos.coords.accuracy) : null,
+    gpsHora: pos ? new Date(pos.timestamp).toISOString() : null,
+    obs: $('#obs').value.trim().slice(0, 200),
+    aparelho: aparelho(), seq: seq,
+    relogioSuspeito: agora.getTime() < ult - 60000
+  };
+  const fila = ler(K.queue, []); fila.push(m);
+  const hist = ler(K.hist, []); hist.push(Object.assign({enviado:false}, m));
+  if (!gravar(K.queue, fila) || !gravar(K.hist, hist.slice(-500))){
+    alert('Não foi possível guardar o registro: a memória do navegador está cheia. Exporte o backup e avise o responsável.');
+    registrando = false; ver('v-equipe'); return;
+  }
+  gravar(K.seq, seq); gravar(K.last, Math.max(ult, agora.getTime()));
+  mostrarComprovante(m);
+  enviar(false);
+}
+function mostrarComprovante(m){
+  const d = new Date(m.horaAparelho);
+  $('#ok-tipo').textContent = nomeTipo(m.tipo) + ' registrada';
+  $('#ok-nome').textContent = m.colabNome;
+  $('#ok-hora').textContent = completo(d);
+  $('#ok-local').textContent = m.lat !== null ? (m.lat + ', ' + m.lng + ' (± ' + m.precisao + ' m)') : 'Sem localização';
+  $('#ok-cod').textContent = m.id.slice(0, 8).toUpperCase();
+  $('#ok-nota').textContent = 'Guardado neste aparelho. Será enviado automaticamente quando houver internet.';
+  ver('v-ok');
+}
+
+/* ---------- envio ---------- */
+function renderStatus(){
+  const n = ler(K.queue, []).length, s = ler(K.sync, null), bt = $('#bt-status');
+  bt.classList.toggle('pend', n > 0);
+  if (enviando) $('#st-a').textContent = 'Enviando…';
+  else if (n > 0) $('#st-a').textContent = n + (n === 1 ? ' pendente' : ' pendentes');
+  else $('#st-a').textContent = 'Tudo enviado';
+  $('#st-b').textContent = !configurado() ? 'Não configurado' : falhou ? 'Sem conexão' : (s ? 'Último envio ' + hora(new Date(s)) : 'Nunca enviado');
+}
+async function enviar(manual){
+  if (enviando) return;
+  if (!configurado()){ if (manual) toast('App não configurado'); renderStatus(); return; }
+  baixarEquipe();
+  const fila = ler(K.queue, []);
+  if (!fila.length){ falhou = false; renderStatus(); if (manual) toast('Nada pendente'); return; }
+  enviando = true; renderStatus();
+  try{
+    const ctrl = new AbortController(), t = setTimeout(() => ctrl.abort(), 25000);
+    const r = await fetch(CONFIG.API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({acao:'marcar', token:CONFIG.TOKEN, marcacoes: fila.slice(0, 200)}), signal: ctrl.signal});
+    clearTimeout(t);
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.erro || 'servidor');
+    const rec = new Set(j.recebidos || []);
+    gravar(K.queue, ler(K.queue, []).filter(m => !rec.has(m.id)));
+    const h = ler(K.hist, []); h.forEach(x => { if (rec.has(x.id)) x.enviado = true; }); gravar(K.hist, h);
+    gravar(K.sync, new Date().toISOString()); falhou = false;
+    if (manual) toast('Registros enviados');
+  }catch(e){ falhou = true; if (manual) toast('Sem conexão. Os registros continuam guardados.'); }
+  finally{ enviando = false; renderStatus(); }
+  if (!falhou && ler(K.queue, []).length) enviar(false);
+}
+
+/* ---------- histórico e backup ---------- */
+function abrirHist(){
+  const h = ler(K.hist, []).slice(-60).reverse(), ul = $('#lista-hist'); ul.textContent = '';
+  $('#hist-vazio').hidden = h.length > 0;
+  h.forEach(m => {
+    const li = document.createElement('li'), d = document.createElement('div'); d.className = 'item';
+    const n = document.createElement('span'); n.className = 'nome'; n.textContent = m.colabNome;
+    const s = document.createElement('span'); s.className = 'sub'; s.textContent = nomeTipo(m.tipo) + ', ' + completo(new Date(m.horaAparelho));
+    const g = document.createElement('span'); g.className = 'tag ' + (m.enviado ? 'ok' : 'pd'); g.textContent = m.enviado ? 'Enviado' : 'Aguardando envio';
+    d.append(n, s, g); li.append(d); ul.append(li);
+  });
+  volta = 'v-equipe'; ver('v-hist');
+}
+function exportar(){
+  const h = ler(K.hist, []);
+  const lim = v => String(v === null || v === undefined ? '' : v).replace(/[;\r\n]/g, ' ');
+  const linhas = ['codigo;colaborador;tipo;data_hora_aparelho;latitude;longitude;precisao_m;observacao;enviado']
+    .concat(h.map(m => [m.id, m.colabNome, nomeTipo(m.tipo), completo(new Date(m.horaAparelho)), m.lat, m.lng, m.precisao, m.obs, m.enviado ? 'sim' : 'não'].map(lim).join(';')));
+  const blob = new Blob(['\ufeff' + linhas.join('\n')], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'ponto-backup-' + aparelho() + '-' + new Date().toISOString().slice(0, 10) + '.csv';
+  document.body.append(a); a.click(); a.remove();
+}
+
+/* ---------- eventos ---------- */
+$('#bt-pin').addEventListener('click', confirmarPin);
+$('#pin').addEventListener('keydown', e => { if (e.key === 'Enter') confirmarPin(); });
+$('#bt-gps-agora').addEventListener('click', () => registrar(melhor));
+$('#bt-gps-sem').addEventListener('click', () => registrar(null));
+$('#bt-gps-cancelar').addEventListener('click', () => { pararGps(); ver('v-tipo'); });
+$('#bt-ok').addEventListener('click', () => { atual = null; renderEquipe(); ver('v-equipe'); });
+$('#bt-enviar').addEventListener('click', () => enviar(true));
+$('#bt-status').addEventListener('click', () => enviar(true));
+$('#bt-hist').addEventListener('click', abrirHist);
+$('#bt-exportar').addEventListener('click', exportar);
+document.querySelectorAll('[data-voltar]').forEach(b => b.addEventListener('click', () => { renderEquipe(); ver(volta); }));
+window.addEventListener('online', () => enviar(false));
+document.addEventListener('visibilitychange', () => { if (!document.hidden) enviar(false); });
+
+tique(); setInterval(tique, 1000);
+renderEquipe(); renderStatus(); enviar(false);
+setInterval(() => { if (ler(K.queue, []).length) enviar(false); }, 60000);
+if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+})();
+</script>
+</body>
+</html>
