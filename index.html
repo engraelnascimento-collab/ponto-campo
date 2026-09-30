@@ -25,8 +25,9 @@
 }
 *,*::before,*::after{box-sizing:inherit}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--txt);font-size:17px;line-height:1.45}
-button,input,textarea{font:inherit;color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}
 button{cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
 :focus-visible{outline:3px solid var(--sinal);outline-offset:2px}
 [hidden]{display:none!important}
 
@@ -41,14 +42,15 @@ button{cursor:pointer}
 
 main{max-width:560px;margin:0 auto;padding:16px 16px 110px}
 h2{font-family:var(--cond);font-weight:700;font-size:1.6rem;margin:20px 0 10px;line-height:1.1}
+h3{font-family:var(--cond);font-weight:700;font-size:1.3rem;margin:22px 0 6px;line-height:1.1}
+.divisa{border:0;border-top:2px dashed var(--line);margin:26px 0 4px}
 
 .placa{background:var(--sinal);color:#1B2420;border-radius:8px;padding:14px 18px 12px;box-shadow:inset 0 0 0 3px #1B2420, inset 0 0 0 6px var(--sinal)}
 .placa .hora{font-family:var(--cond);font-weight:700;font-size:4.2rem;line-height:1;font-variant-numeric:tabular-nums}
-.placa .data{font-weight:600;text-transform:none;margin-top:4px}
+.placa .data{font-weight:600;margin-top:4px}
 
 .lista{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .item{width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-height:64px;display:flex;flex-direction:column;justify-content:center}
-.item:active{transform:scale(.99)}
 .item .nome{font-weight:600;font-size:1.1rem}
 .item .sub{color:var(--muted);font-size:.9rem}
 .item .tag{font-size:.8rem;font-weight:600}
@@ -57,21 +59,43 @@ h2{font-family:var(--cond);font-weight:700;font-size:1.6rem;margin:20px 0 10px;l
 
 .aviso{background:var(--card);border-left:5px solid var(--sinal);padding:12px 14px;border-radius:4px}
 .erro{color:var(--ferrugem);font-weight:600}
-label{display:block;font-weight:600;margin:14px 0 6px}
-input[type=password],input[type=text],textarea{width:100%;background:var(--card);border:2px solid var(--line);border-radius:8px;padding:12px 14px}
+.dica{color:var(--muted);font-size:.9rem;margin:6px 0 0}
+label,.rotulo{display:block;font-weight:600;margin:16px 0 6px}
+input[type=password],input[type=text],input[type=date],textarea,select{width:100%;background:var(--card);border:2px solid var(--line);border-radius:8px;padding:12px 14px;min-height:50px}
 input#pin{font-size:1.8rem;letter-spacing:.35em;text-align:center}
 textarea{min-height:64px;resize:vertical}
+#rel-desc{min-height:130px}
 
-.btn{display:block;width:100%;border:0;border-radius:8px;padding:14px 16px;min-height:56px;font-weight:600;font-size:1.05rem;margin-top:12px}
+.btn{display:block;width:100%;border:0;border-radius:8px;padding:14px 16px;min-height:56px;font-weight:600;font-size:1.05rem;margin-top:12px;text-align:center}
 .btn.primario{background:var(--ink);color:var(--bg)}
 .btn.sec{background:transparent;border:2px solid var(--line)}
+.btn.destaque{background:var(--sinal);color:#1B2420;border:0}
 .btn.voltar{background:transparent;border:0;padding:8px 0;min-height:44px;width:auto;margin:0;color:var(--muted)}
+.btn.gravando{background:var(--ferrugem);color:#fff;border-color:var(--ferrugem)}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dupla .btn{margin-top:8px}
 
 .tipos{display:grid;gap:10px;margin-top:6px}
 .tipo{border:2px solid var(--line);background:var(--card);border-radius:8px;min-height:70px;padding:12px 16px;text-align:left;font-family:var(--cond);font-weight:700;font-size:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .tipo small{font-family:var(--txt);font-weight:600;font-size:.8rem;color:var(--muted)}
 .tipo.sug{border-color:var(--ink);box-shadow:inset 6px 0 0 var(--sinal)}
 .tipo.sug small{color:var(--ink)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;min-height:44px;font-weight:600}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.linha-item{display:grid;grid-template-columns:1fr 76px 64px 44px;gap:6px;margin-bottom:8px}
+.linha-item input{min-height:48px;padding:10px}
+.x{border:2px solid var(--line);background:transparent;border-radius:8px;font-size:1.3rem;line-height:1}
+
+.miniaturas{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.mini{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--line);aspect-ratio:1;background:var(--card)}
+.mini img{width:100%;height:100%;object-fit:cover;display:block}
+.mini .x{position:absolute;top:4px;right:4px;width:36px;height:36px;background:rgba(0,0,0,.65);color:#fff;border:0}
+.mini .orig{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);color:#fff;font-size:.72rem;padding:2px 6px}
+.audio{display:grid;grid-template-columns:1fr 44px;gap:8px;align-items:center;margin-bottom:8px}
+.audio audio{width:100%}
 
 .gps{text-align:center;padding-top:24px}
 .gps .alvo{width:120px;height:120px;margin:0 auto 14px;border-radius:50%;border:4px solid var(--sinal);position:relative}
@@ -91,7 +115,7 @@ textarea{min-height:64px;resize:vertical}
 .rodape{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);
   padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;justify-content:center}
 .rodape .btn{margin:0;max-width:270px;min-height:50px}
-.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font-weight:600;max-width:90%}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font-weight:600;max-width:90%;z-index:10}
 </style>
 </head>
 <body>
@@ -101,12 +125,26 @@ textarea{min-height:64px;resize:vertical}
 </header>
 
 <main>
-  <section id="v-equipe" class="vista">
-    <div class="placa" aria-live="off"><div class="hora" id="rel-hora">--:--</div><div class="data" id="rel-data"></div></div>
-    <p id="nao-config" class="aviso" hidden>O app ainda não foi configurado. O responsável precisa informar o endereço da planilha no arquivo index.html (veja o guia de instalação).</p>
-    <h2>Quem vai registrar?</h2>
-    <ul id="lista-equipe" class="lista"></ul>
-    <p id="equipe-vazia" class="aviso" hidden>A lista da equipe ainda não foi baixada neste aparelho. Conecte à internet uma vez e toque em “Enviar agora”.</p>
+  <section id="v-inicio" class="vista">
+    <div class="placa"><div class="hora" id="rel-hora">--:--</div><div class="data" id="rel-data-hoje"></div></div>
+    <p id="nao-config" class="aviso" hidden>O app ainda não foi configurado. O responsável precisa informar o endereço da planilha no arquivo index.html.</p>
+    <div id="bloco-login" hidden>
+      <h2>Entrar neste aparelho</h2>
+      <p class="dica">Use o ID e o PIN fornecidos pelo responsável. A internet só é necessária neste primeiro acesso.</p>
+      <label for="lg-id">Seu ID</label>
+      <input id="lg-id" type="text" inputmode="numeric" autocomplete="off" maxlength="20">
+      <label for="lg-pin">PIN</label>
+      <input id="lg-pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12">
+      <p id="lg-erro" class="erro" hidden></p>
+      <button id="bt-entrar" class="btn primario" type="button">Entrar</button>
+    </div>
+    <div id="bloco-user" hidden>
+      <h2 id="ini-nome"></h2>
+      <p class="dica" id="ini-ult"></p>
+      <p id="ini-bloq" class="aviso" hidden>Seu acesso foi desativado. Procure o responsável pela equipe.</p>
+      <button id="bt-continuar" class="btn primario" type="button">Registrar ponto ou relatório</button>
+      <button id="bt-sair" class="btn voltar" type="button">Sair deste aparelho</button>
+    </div>
   </section>
 
   <section id="v-pin" class="vista" hidden>
@@ -121,10 +159,15 @@ textarea{min-height:64px;resize:vertical}
   <section id="v-tipo" class="vista" hidden>
     <button class="btn voltar" data-voltar type="button">Voltar</button>
     <h2 id="tipo-nome"></h2>
+    <h3>Registrar ponto</h3>
     <label for="obs">Local ou observação (opcional)</label>
     <textarea id="obs" maxlength="200" placeholder="Ex.: obra da Rua A, trecho da drenagem"></textarea>
-    <label>O que você está registrando?</label>
+    <p class="rotulo">O que você está registrando?</p>
     <div class="tipos" id="tipos"></div>
+    <hr class="divisa">
+    <h3>Serviço executado</h3>
+    <p class="dica">Informe o que foi feito na obra, com fotos e áudio. Serve para o diário de obra e a medição.</p>
+    <button id="bt-abrir-rel" class="btn destaque" type="button">Fazer relatório de serviço</button>
   </section>
 
   <section id="v-gps" class="vista gps" hidden>
@@ -146,17 +189,77 @@ textarea{min-height:64px;resize:vertical}
         <dt>Local</dt><dd id="ok-local"></dd>
         <dt>Código</dt><dd id="ok-cod"></dd>
       </dl>
-      <p class="nota" id="ok-nota"></p>
+      <p class="nota">Guardado neste aparelho. Será enviado automaticamente quando houver internet.</p>
     </div>
-    <button id="bt-ok" class="btn primario" type="button">Concluir</button>
+    <button class="btn primario" data-concluir type="button">Concluir</button>
+  </section>
+
+  <section id="v-rel" class="vista" hidden>
+    <button id="bt-rel-voltar" class="btn voltar" type="button">Voltar</button>
+    <h2>Relatório de serviço</h2>
+    <p class="dica" id="rel-nome"></p>
+
+    <label for="rel-obra">Obra</label>
+    <select id="rel-obra"></select>
+    <input id="rel-obra-outra" type="text" maxlength="100" placeholder="Nome da obra" aria-label="Nome da obra" hidden>
+
+    <label for="rel-data">Data do serviço</label>
+    <input id="rel-data" type="date">
+
+    <p class="rotulo">Clima</p>
+    <div class="chips" id="rel-clima"></div>
+
+    <label for="rel-desc">Serviços executados</label>
+    <textarea id="rel-desc" maxlength="4000" placeholder="Ex.: assentamento de meio-fio na Rua B, lado direito, da estaca 3 à 7."></textarea>
+    <p class="dica">Para ditar em vez de digitar, toque no microfone do teclado.</p>
+
+    <p class="rotulo">Quantidades executadas (opcional)</p>
+    <div id="rel-itens"></div>
+    <button id="bt-add-item" class="btn sec" type="button">Adicionar quantidade</button>
+
+    <p class="rotulo">Fotos</p>
+    <div class="miniaturas" id="rel-fotos"></div>
+    <div class="dupla">
+      <button id="bt-foto-cam" class="btn sec" type="button">Tirar foto</button>
+      <button id="bt-foto-gal" class="btn sec" type="button">Da galeria</button>
+    </div>
+    <input type="file" id="in-cam" accept="image/*" capture="environment" hidden>
+    <input type="file" id="in-gal" accept="image/*" multiple hidden>
+
+    <p class="rotulo">Áudios</p>
+    <div id="rel-audios"></div>
+    <button id="bt-gravar" class="btn sec" type="button">Gravar áudio</button>
+
+    <p class="dica" id="rel-gps"></p>
+    <p id="rel-erro" class="erro" hidden></p>
+    <button id="bt-salvar-rel" class="btn primario" type="button">Salvar relatório</button>
+  </section>
+
+  <section id="v-rel-ok" class="vista" hidden>
+    <div class="comp">
+      <div class="cab">Relatório salvo</div>
+      <dl>
+        <dt>Colaborador</dt><dd id="ro-nome"></dd>
+        <dt>Obra</dt><dd id="ro-obra"></dd>
+        <dt>Data do serviço</dt><dd id="ro-data"></dd>
+        <dt>Anexos</dt><dd id="ro-anexos"></dd>
+        <dt>Código</dt><dd id="ro-cod"></dd>
+      </dl>
+      <p class="nota">Guardado neste aparelho. Fotos e áudios serão enviados quando houver internet; com sinal fraco, o envio pode levar alguns minutos.</p>
+    </div>
+    <button class="btn primario" data-concluir type="button">Concluir</button>
   </section>
 
   <section id="v-hist" class="vista" hidden>
     <button class="btn voltar" data-voltar type="button">Voltar</button>
     <h2>Registros neste aparelho</h2>
+    <h3>Relatórios de serviço</h3>
+    <ul id="lista-rels" class="lista"></ul>
+    <p id="rels-vazio" class="dica" hidden>Nenhum relatório feito neste aparelho.</p>
+    <h3>Ponto</h3>
     <ul id="lista-hist" class="lista"></ul>
-    <p id="hist-vazio" class="aviso" hidden>Nenhum registro feito neste aparelho ainda.</p>
-    <button id="bt-exportar" class="btn sec" type="button">Exportar backup (planilha CSV)</button>
+    <p id="hist-vazio" class="dica" hidden>Nenhum ponto registrado neste aparelho.</p>
+    <button id="bt-exportar" class="btn sec" type="button">Exportar backup do ponto (CSV)</button>
   </section>
 </main>
 
@@ -170,24 +273,29 @@ textarea{min-height:64px;resize:vertical}
 (function(){
 'use strict';
 
-/* ====== CONFIGURAÇÃO — o responsável preenche antes de publicar ====== */
+/* ====== CONFIGURAÇÃO ====== */
 const CONFIG = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbzzNMzrz0DjrXYQ7Fog5RlXCuOeYL11nTI8eXJ1mvEXr_hX3AKtwLxMos9TGicc4PZt/exec',   // termina em /exec
-  TOKEN:   'pc-q8Rt2wLx-Bz47'                // o mesmo código usado no Apps Script
+  API_URL: 'https://script.google.com/macros/s/AKfycbzzNMzrz0DjrXYQ7Fog5RlXCuOeYL11nTI8eXJ1mvEXr_hX3AKtwLxMos9TGicc4PZt/exec',
+  TOKEN:   'pc-q8Rt2wLx-Bz47'
 };
-/* ===================================================================== */
+/* ========================== */
 
-const K = {team:'pc_equipe', queue:'pc_fila', hist:'pc_hist', dev:'pc_aparelho', seq:'pc_seq', last:'pc_ultima', sync:'pc_ultimo_envio'};
+const K = {team:'pc_equipe', me:'pc_usuario', obras:'pc_obras', queue:'pc_fila', hist:'pc_hist', dev:'pc_aparelho', seq:'pc_seq', last:'pc_ultima', sync:'pc_ultimo_envio'};
 const TIPOS = [
   {id:'entrada', nome:'Entrada'},
   {id:'saida_intervalo', nome:'Saída para intervalo'},
   {id:'retorno_intervalo', nome:'Retorno do intervalo'},
   {id:'saida', nome:'Saída'}
 ];
+const CLIMAS = ['Bom', 'Nublado', 'Chuva', 'Chuva impediu o serviço'];
+const MAX_FOTOS = 10, MAX_AUDIOS = 3, MAX_SEG_AUDIO = 300;
+
 const $ = s => document.querySelector(s);
 let atual = null, tipoSel = null, watchId = null, melhor = null, gpsTimer = null, gpsInicio = 0, negado = false, registrando = false;
-let enviando = false, falhou = false, volta = 'v-equipe';
+let enviando = false, falhou = false, volta = 'v-inicio', relPend = 0;
+let rel = null, relWatch = null, gravador = null, gravInicio = 0, gravTimer = null;
 
+/* ---------- utilidades ---------- */
 function ler(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
 function gravar(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
 function uid(){
@@ -199,49 +307,122 @@ async function sha256(s){
   const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
   return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join('');
 }
+const pad2 = n => String(n).padStart(2, '0');
 const hora = d => d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
 const dataCurta = d => d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
 const completo = d => d.toLocaleString('pt-BR');
+const hojeISO = () => { const d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); };
+const isoBr = s => { const p = String(s).split('-'); return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : s; };
 const nomeTipo = id => (TIPOS.find(t => t.id === id) || {nome:id}).nome;
 const mesmoDia = (a, b) => a.toDateString() === b.toDateString();
 const configurado = () => /^https:\/\//.test(CONFIG.API_URL);
-
-function toast(msg){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => t.hidden = true, 2600); }
+function toast(msg, ms){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => t.hidden = true, ms || 2600); }
 function ver(id){ document.querySelectorAll('.vista').forEach(s => s.hidden = s.id !== id); window.scrollTo(0,0); }
+function b64(blob){ return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = () => rej(r.error); r.readAsDataURL(blob); }); }
+function numero(v){
+  let s = String(v == null ? '' : v).trim(); if (!s) return null;
+  if (s.indexOf(',') >= 0) s = s.replace(/\./g, '').replace(',', '.');
+  const n = parseFloat(s); return isNaN(n) ? null : n;
+}
+function extAudio(m){ return /mp4|m4a|aac/.test(m) ? 'm4a' : /ogg/.test(m) ? 'ogg' : 'webm'; }
+
+/* ---------- banco local para relatórios (fotos e áudios) ---------- */
+const IDB = {
+  db: null,
+  open(){
+    if (this.db) return Promise.resolve(this.db);
+    return new Promise((res, rej) => {
+      if (!window.indexedDB) return rej(new Error('sem indexedDB'));
+      const r = indexedDB.open('pontoCampo', 1);
+      r.onupgradeneeded = () => { const d = r.result;
+        if (!d.objectStoreNames.contains('rel')) d.createObjectStore('rel', {keyPath:'id'});
+        if (!d.objectStoreNames.contains('arq')) d.createObjectStore('arq', {keyPath:'id'}); };
+      r.onsuccess = () => { this.db = r.result; res(this.db); };
+      r.onerror = () => rej(r.error);
+    });
+  },
+  async tx(store, modo, fn){
+    const d = await this.open();
+    return new Promise((res, rej) => {
+      const t = d.transaction(store, modo); let out; const r = fn(t.objectStore(store));
+      if (r) r.onsuccess = () => { out = r.result; };
+      t.oncomplete = () => res(out); t.onerror = () => rej(t.error); t.onabort = () => rej(t.error);
+    });
+  },
+  put(s, v){ return this.tx(s, 'readwrite', o => o.put(v)); },
+  get(s, k){ return this.tx(s, 'readonly', o => o.get(k)); },
+  all(s){ return this.tx(s, 'readonly', o => o.getAll()); },
+  del(s, k){ return this.tx(s, 'readwrite', o => o.delete(k)); },
+  async salvarRel(meta, blobs){
+    const d = await this.open();
+    return new Promise((res, rej) => {
+      const t = d.transaction(['rel', 'arq'], 'readwrite');
+      blobs.forEach(b => t.objectStore('arq').put(b));
+      t.objectStore('rel').put(meta);
+      t.oncomplete = () => res(); t.onerror = () => rej(t.error); t.onabort = () => rej(t.error);
+    });
+  }
+};
 
 /* ---------- relógio ---------- */
-function tique(){ const d = new Date(); $('#rel-hora').textContent = hora(d); const t = d.toLocaleDateString('pt-BR',{weekday:'long', day:'2-digit', month:'long'}); $('#rel-data').textContent = t.charAt(0).toUpperCase() + t.slice(1); }
+function tique(){ const d = new Date(); $('#rel-hora').textContent = hora(d); const t = d.toLocaleDateString('pt-BR',{weekday:'long', day:'2-digit', month:'long'}); $('#rel-data-hoje').textContent = t.charAt(0).toUpperCase() + t.slice(1); }
 
 /* ---------- equipe ---------- */
 function ultimaDe(id){ const h = ler(K.hist, []); for (let i = h.length-1; i >= 0; i--) if (h[i].colabId === id) return h[i]; return null; }
-function renderEquipe(){
-  const eq = ler(K.team, []), ul = $('#lista-equipe'); ul.textContent = '';
-  $('#equipe-vazia').hidden = eq.length > 0;
+function renderInicio(){
+  const me = ler(K.me, null);
   $('#nao-config').hidden = configurado();
-  const hoje = new Date();
-  eq.forEach(c => {
-    const li = document.createElement('li'), b = document.createElement('button');
-    b.type = 'button'; b.className = 'item';
-    const n = document.createElement('span'); n.className = 'nome'; n.textContent = c.nome;
-    const s = document.createElement('span'); s.className = 'sub';
-    const u = ultimaDe(c.id);
-    if (u){ const d = new Date(u.horaAparelho); s.textContent = 'Último: ' + nomeTipo(u.tipo) + ' às ' + hora(d) + (mesmoDia(d, hoje) ? '' : ' de ' + dataCurta(d)); }
-    else s.textContent = 'Sem registro neste aparelho';
-    b.append(n, s); b.addEventListener('click', () => abrirPin(c));
-    li.append(b); ul.append(li);
-  });
+  $('#bloco-login').hidden = !!me; $('#bloco-user').hidden = !me;
+  if (!me) return;
+  $('#ini-nome').textContent = me.nome;
+  const u = ultimaDe(me.id);
+  if (u){ const d = new Date(u.horaAparelho); $('#ini-ult').textContent = 'Último ponto: ' + nomeTipo(u.tipo) + ' às ' + hora(d) + (mesmoDia(d, new Date()) ? '' : ' de ' + dataCurta(d)); }
+  else $('#ini-ult').textContent = 'Nenhum ponto registrado neste aparelho.';
+  $('#ini-bloq').hidden = !me.bloqueado; $('#bt-continuar').disabled = !!me.bloqueado;
 }
-async function baixarEquipe(){
-  if (!configurado()) return;
+function erroLogin(msg){ const e = $('#lg-erro'); e.textContent = msg; e.hidden = false; }
+async function entrar(){
+  const id = $('#lg-id').value.trim(), pin = $('#lg-pin').value.trim();
+  $('#lg-erro').hidden = true;
+  if (!id || !pin) return erroLogin('Informe o ID e o PIN.');
+  if (!configurado()) return erroLogin('O app ainda não foi configurado.');
+  const bt = $('#bt-entrar'); bt.disabled = true; bt.textContent = 'Entrando…';
   try{
-    const r = await fetch(CONFIG.API_URL + '?acao=equipe&token=' + encodeURIComponent(CONFIG.TOKEN), {cache:'no-store'});
-    const j = await r.json();
-    if (j.ok && Array.isArray(j.equipe)){ gravar(K.team, j.equipe); renderEquipe(); }
-  }catch(e){ /* sem conexão: usa a lista guardada */ }
+    const j = await post({acao:'login', token: CONFIG.TOKEN, id, pin}, 20000);
+    gravar(K.me, j.colab);
+    if (Array.isArray(j.obras)) gravar(K.obras, j.obras);
+    gravar(K.sync, new Date().toISOString()); falhou = false;
+    $('#lg-id').value = ''; $('#lg-pin').value = '';
+    renderInicio(); renderStatus();
+  }catch(e){
+    const m = e && e.message;
+    erroLogin(m === 'login' ? 'ID ou PIN incorretos.' : m === 'bloqueado' ? 'Muitas tentativas erradas. Aguarde 15 minutos e tente de novo.' : 'Sem conexão. O primeiro acesso precisa de internet.');
+  }finally{ bt.disabled = false; bt.textContent = 'Entrar'; }
+}
+async function sair(){
+  const me = ler(K.me, null); if (!me) return;
+  await contarPend();
+  if (ler(K.queue, []).length || relPend){ alert('Há registros ainda não enviados neste aparelho. Conecte à internet e toque em “Enviar agora” antes de sair.'); return; }
+  if (!confirm('Sair deste aparelho? Para voltar a usar, será preciso entrar de novo com ID e PIN, com internet.')) return;
+  localStorage.removeItem(K.me); localStorage.removeItem(K.hist);
+  try{ for (const r of await IDB.all('rel')) await IDB.del('rel', r.id); }catch(e){}
+  renderInicio();
+}
+async function atualizarPerfil(){
+  const me = ler(K.me, null); if (!me || !configurado()) return false;
+  try{
+    const j = await post({acao:'perfil', token: CONFIG.TOKEN, id: me.id, pinHash: me.pinHash}, 20000);
+    if (j.ativo === false){ me.bloqueado = true; gravar(K.me, me); }
+    else if (j.pinMudou){ localStorage.removeItem(K.me); toast('Seu PIN foi alterado. Entre novamente.', 4000); }
+    else { me.bloqueado = false; if (j.nome) me.nome = j.nome; gravar(K.me, me); if (Array.isArray(j.obras)) gravar(K.obras, j.obras); }
+    gravar(K.sync, new Date().toISOString());
+    renderInicio();
+    return true;
+  }catch(e){ return false; }
 }
 
 /* ---------- PIN ---------- */
-function abrirPin(c){ atual = c; $('#pin-nome').textContent = c.nome; $('#pin').value = ''; $('#pin-erro').hidden = true; volta = 'v-equipe'; ver('v-pin'); setTimeout(() => $('#pin').focus(), 50); }
+function abrirPin(c){ if (!c || c.bloqueado) return; atual = c; $('#pin-nome').textContent = c.nome; $('#pin').value = ''; $('#pin-erro').hidden = true; volta = 'v-inicio'; ver('v-pin'); setTimeout(() => $('#pin').focus(), 50); }
 async function confirmarPin(){
   const pin = $('#pin').value.trim(); if (!pin) return;
   const h = await sha256(atual.id + ':' + pin);
@@ -249,7 +430,7 @@ async function confirmarPin(){
   abrirTipo();
 }
 
-/* ---------- tipo ---------- */
+/* ---------- escolha: ponto ou relatório ---------- */
 function abrirTipo(){
   $('#tipo-nome').textContent = atual.nome; $('#obs').value = '';
   const u = ultimaDe(atual.id);
@@ -263,10 +444,10 @@ function abrirTipo(){
     b.addEventListener('click', () => { tipoSel = t.id; iniciarGps(); });
     box.append(b);
   });
-  volta = 'v-equipe'; ver('v-tipo');
+  volta = 'v-inicio'; ver('v-tipo');
 }
 
-/* ---------- GPS ---------- */
+/* ---------- GPS do ponto ---------- */
 function iniciarGps(){
   ver('v-gps'); melhor = null; negado = false; registrando = false; gpsInicio = Date.now();
   $('#gps-msg').textContent = 'Procurando sinal de GPS. Fique em local aberto, longe de telhado ou laje.';
@@ -291,7 +472,7 @@ function atualizarGps(){
   $('#bt-gps-sem').hidden = !(negado || (!melhor && seg >= 45));
 }
 
-/* ---------- registro ---------- */
+/* ---------- registro de ponto ---------- */
 function registrar(pos){
   if (registrando) return; registrando = true; pararGps();
   const agora = new Date(), ult = ler(K.last, 0), seq = ler(K.seq, 0) + 1;
@@ -310,59 +491,301 @@ function registrar(pos){
   const hist = ler(K.hist, []); hist.push(Object.assign({enviado:false}, m));
   if (!gravar(K.queue, fila) || !gravar(K.hist, hist.slice(-500))){
     alert('Não foi possível guardar o registro: a memória do navegador está cheia. Exporte o backup e avise o responsável.');
-    registrando = false; ver('v-equipe'); return;
+    registrando = false; ver('v-inicio'); return;
   }
   gravar(K.seq, seq); gravar(K.last, Math.max(ult, agora.getTime()));
-  mostrarComprovante(m);
-  enviar(false);
-}
-function mostrarComprovante(m){
   const d = new Date(m.horaAparelho);
   $('#ok-tipo').textContent = nomeTipo(m.tipo) + ' registrada';
   $('#ok-nome').textContent = m.colabNome;
   $('#ok-hora').textContent = completo(d);
   $('#ok-local').textContent = m.lat !== null ? (m.lat + ', ' + m.lng + ' (± ' + m.precisao + ' m)') : 'Sem localização';
   $('#ok-cod').textContent = m.id.slice(0, 8).toUpperCase();
-  $('#ok-nota').textContent = 'Guardado neste aparelho. Será enviado automaticamente quando houver internet.';
   ver('v-ok');
+  renderStatus(); enviar(false);
+}
+
+/* ---------- relatório de serviço ---------- */
+function abrirRel(){
+  if (!window.indexedDB){ toast('Este navegador não permite guardar relatórios. Use o Chrome atualizado.', 4000); return; }
+  rel = {id: uid(), fotos: [], audios: [], itens: [], clima: '', pos: null};
+  $('#rel-nome').textContent = atual.nome;
+  const sel = $('#rel-obra'); sel.textContent = '';
+  sel.add(new Option('Selecione a obra', ''));
+  ler(K.obras, []).forEach(o => sel.add(new Option(o.nome, o.id)));
+  sel.add(new Option('Outra (digitar o nome)', '__outra'));
+  const ultObra = ler('pc_ultima_obra_' + atual.id, '');
+  if (ultObra && Array.from(sel.options).some(o => o.value === ultObra)) sel.value = ultObra;
+  $('#rel-obra-outra').value = ''; $('#rel-obra-outra').hidden = sel.value !== '__outra';
+  $('#rel-data').value = hojeISO(); $('#rel-data').max = hojeISO();
+  $('#rel-desc').value = ''; $('#rel-erro').hidden = true;
+  renderClima(); renderItens(); renderFotos(); renderAudios(); renderBotaoGravar();
+  ver('v-rel'); gpsRel();
+}
+function relTemConteudo(){ return rel && (rel.fotos.length || rel.audios.length || rel.itens.length || $('#rel-desc').value.trim()); }
+function descartarRel(){
+  if (gravador){ try{ gravador.stop(); }catch(e){} }
+  pararGpsRel();
+  if (rel){ rel.fotos.concat(rel.audios).forEach(x => URL.revokeObjectURL(x.url)); }
+  rel = null;
+}
+function erroRel(msg){ const e = $('#rel-erro'); e.textContent = msg; e.hidden = false; e.scrollIntoView({block:'center'}); }
+
+function gpsRel(){
+  const out = $('#rel-gps');
+  if (!('geolocation' in navigator)){ out.textContent = 'Este aparelho não oferece localização.'; return; }
+  out.textContent = 'Buscando a localização da obra…';
+  const inicio = Date.now();
+  relWatch = navigator.geolocation.watchPosition(p => {
+    if (!rel) return;
+    if (!rel.pos || p.coords.accuracy < rel.pos.precisao)
+      rel.pos = {lat: +p.coords.latitude.toFixed(6), lng: +p.coords.longitude.toFixed(6), precisao: Math.round(p.coords.accuracy)};
+    out.textContent = 'Localização registrada (± ' + rel.pos.precisao + ' m).';
+    if (rel.pos.precisao <= 25 || Date.now() - inicio > 90000) pararGpsRel();
+  }, err => {
+    out.textContent = err.code === 1 ? 'Localização bloqueada: o relatório será salvo sem ela.' : 'Buscando a localização da obra…';
+  }, {enableHighAccuracy:true, maximumAge:60000, timeout:120000});
+}
+function pararGpsRel(){ if (relWatch !== null){ navigator.geolocation.clearWatch(relWatch); relWatch = null; } }
+
+function renderClima(){
+  const box = $('#rel-clima'); box.textContent = '';
+  CLIMAS.forEach(c => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = c;
+    b.setAttribute('aria-pressed', rel.clima === c ? 'true' : 'false');
+    b.addEventListener('click', () => { rel.clima = rel.clima === c ? '' : c; renderClima(); });
+    box.append(b);
+  });
+}
+function campo(valor, dica){ const i = document.createElement('input'); i.type = 'text'; i.value = valor || ''; i.placeholder = dica; i.setAttribute('aria-label', dica); return i; }
+function botaoX(rotulo, fn){ const b = document.createElement('button'); b.type = 'button'; b.className = 'x'; b.textContent = '×'; b.setAttribute('aria-label', rotulo); b.addEventListener('click', fn); return b; }
+function renderItens(){
+  const box = $('#rel-itens'); box.textContent = '';
+  rel.itens.forEach((it, i) => {
+    const row = document.createElement('div'); row.className = 'linha-item';
+    const s = campo(it.servico, 'Serviço (ex.: meio-fio)'); s.maxLength = 120; s.addEventListener('input', () => it.servico = s.value);
+    const q = campo(it.qtd, 'Qtd'); q.inputMode = 'decimal'; q.addEventListener('input', () => it.qtd = q.value);
+    const u = campo(it.un, 'Un.'); u.maxLength = 10; u.addEventListener('input', () => it.un = u.value);
+    row.append(s, q, u, botaoX('Remover quantidade', () => { rel.itens.splice(i, 1); renderItens(); }));
+    box.append(row);
+  });
+}
+
+/* fotos: reduz o tamanho e grava obra, data, hora e local na imagem */
+function carregarImg(file){
+  return new Promise((res, rej) => { const img = new Image(); const u = URL.createObjectURL(file);
+    img.onload = () => { URL.revokeObjectURL(u); res(img); }; img.onerror = () => { URL.revokeObjectURL(u); rej(new Error('img')); }; img.src = u; });
+}
+async function carimbar(file, origem){
+  let src;
+  try{ src = await createImageBitmap(file, {imageOrientation:'from-image'}); }catch(e){ src = await carregarImg(file); }
+  const w0 = src.width, h0 = src.height, esc = Math.min(1, 1600 / Math.max(w0, h0));
+  const w = Math.round(w0 * esc), h = Math.round(h0 * esc);
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const x = c.getContext('2d'); x.drawImage(src, 0, 0, w, h);
+  const obraSel = $('#rel-obra'); const obraTxt = obraSel.value === '__outra' ? $('#rel-obra-outra').value.trim() : (obraSel.value ? obraSel.options[obraSel.selectedIndex].text : '');
+  const quando = origem === 'galeria' ? 'Da galeria, arquivo de ' + completo(new Date(file.lastModified || Date.now())) : completo(new Date());
+  const linhas = [
+    obraTxt || 'Obra não informada',
+    quando,
+    rel.pos ? (rel.pos.lat + ', ' + rel.pos.lng + ' (± ' + rel.pos.precisao + ' m)') : 'Sem localização',
+    atual.nome
+  ];
+  const fs = Math.max(14, Math.round(Math.min(w, h) * 0.032)), padd = Math.round(fs * 0.6), alt = linhas.length * fs * 1.3 + padd * 2;
+  x.fillStyle = 'rgba(0,0,0,0.6)'; x.fillRect(0, h - alt, w, alt);
+  x.font = '600 ' + fs + 'px sans-serif'; x.textBaseline = 'top';
+  linhas.forEach((l, i) => { x.fillStyle = i === 0 ? '#F2B705' : '#FFFFFF'; x.fillText(l, padd, h - alt + padd + i * fs * 1.3, w - padd * 2); });
+  return new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error('blob')), 'image/jpeg', 0.8));
+}
+async function addFotos(files, origem){
+  for (const f of files){
+    if (!rel) return;
+    if (rel.fotos.length >= MAX_FOTOS){ toast('Limite de ' + MAX_FOTOS + ' fotos por relatório'); break; }
+    toast('Preparando foto…', 8000);
+    try{ const blob = await carimbar(f, origem); rel.fotos.push({id: uid(), blob, origem, url: URL.createObjectURL(blob)}); $('#toast').hidden = true; }
+    catch(e){ toast('Não foi possível ler esta foto.'); }
+  }
+  renderFotos();
+}
+function renderFotos(){
+  const box = $('#rel-fotos'); box.textContent = '';
+  rel.fotos.forEach((f, i) => {
+    const d = document.createElement('div'); d.className = 'mini';
+    const img = document.createElement('img'); img.src = f.url; img.alt = 'Foto ' + (i + 1);
+    const o = document.createElement('span'); o.className = 'orig'; o.textContent = f.origem === 'galeria' ? 'Galeria' : 'Câmera';
+    d.append(img, o, botaoX('Remover foto ' + (i + 1), () => { URL.revokeObjectURL(f.url); rel.fotos.splice(i, 1); renderFotos(); }));
+    box.append(d);
+  });
+}
+
+/* áudio: grava no aparelho, sem precisar de internet */
+function mimeAudio(){
+  if (!window.MediaRecorder || !navigator.mediaDevices) return null;
+  const c = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+  if (MediaRecorder.isTypeSupported) for (const m of c) if (MediaRecorder.isTypeSupported(m)) return m;
+  return '';
+}
+function renderBotaoGravar(){
+  const b = $('#bt-gravar');
+  if (gravador){
+    const s = Math.floor((Date.now() - gravInicio) / 1000);
+    b.textContent = 'Parar gravação (' + Math.floor(s / 60) + ':' + pad2(s % 60) + ' de 5:00)'; b.classList.add('gravando');
+  } else {
+    b.textContent = 'Gravar áudio'; b.classList.remove('gravando');
+    b.disabled = !!rel && rel.audios.length >= MAX_AUDIOS;
+  }
+}
+async function gravarAudio(){
+  if (gravador){ gravador.stop(); return; }
+  if (rel.audios.length >= MAX_AUDIOS){ toast('Limite de ' + MAX_AUDIOS + ' áudios por relatório'); return; }
+  const mime = mimeAudio();
+  if (mime === null){ erroRel('Este aparelho não permite gravar áudio pelo app.'); return; }
+  let stream;
+  try{ stream = await navigator.mediaDevices.getUserMedia({audio:true}); }
+  catch(e){ erroRel('O microfone está bloqueado. Permita o acesso ao microfone nas configurações do navegador.'); return; }
+  $('#rel-erro').hidden = true;
+  const partes = []; let rec;
+  try{ rec = new MediaRecorder(stream, mime ? {mimeType: mime, audioBitsPerSecond: 32000} : undefined); }
+  catch(e){ rec = new MediaRecorder(stream); }
+  rec.ondataavailable = e => { if (e.data && e.data.size) partes.push(e.data); };
+  rec.onstop = () => {
+    stream.getTracks().forEach(t => t.stop()); clearInterval(gravTimer);
+    const tipo = (rec.mimeType || mime || 'audio/webm').split(';')[0];
+    const blob = new Blob(partes, {type: tipo});
+    const dur = Math.round((Date.now() - gravInicio) / 1000);
+    gravador = null;
+    if (rel && blob.size > 0){ rel.audios.push({id: uid(), blob, mime: tipo, dur, url: URL.createObjectURL(blob)}); renderAudios(); }
+    renderBotaoGravar();
+  };
+  gravador = rec; gravInicio = Date.now(); rec.start(1000); renderBotaoGravar();
+  gravTimer = setInterval(() => { renderBotaoGravar(); if ((Date.now() - gravInicio) / 1000 >= MAX_SEG_AUDIO && gravador) gravador.stop(); }, 500);
+}
+function renderAudios(){
+  const box = $('#rel-audios'); box.textContent = '';
+  rel.audios.forEach((a, i) => {
+    const d = document.createElement('div'); d.className = 'audio';
+    const au = document.createElement('audio'); au.controls = true; au.src = a.url; au.setAttribute('aria-label', 'Áudio ' + (i + 1));
+    d.append(au, botaoX('Remover áudio ' + (i + 1), () => { URL.revokeObjectURL(a.url); rel.audios.splice(i, 1); renderAudios(); renderBotaoGravar(); }));
+    box.append(d);
+  });
+}
+
+async function salvarRel(){
+  if (gravador){ toast('Pare a gravação antes de salvar'); return; }
+  const sel = $('#rel-obra'); let obraId = sel.value, obra = '';
+  if (obraId === '__outra'){ obra = $('#rel-obra-outra').value.trim(); obraId = ''; }
+  else if (obraId){ obra = sel.options[sel.selectedIndex].text; }
+  const desc = $('#rel-desc').value.trim(), data = $('#rel-data').value;
+  if (!obra) return erroRel('Informe a obra.');
+  if (!data) return erroRel('Informe a data do serviço.');
+  if (data > hojeISO()) return erroRel('A data do serviço não pode ser futura.');
+  if (!desc && !rel.audios.length) return erroRel('Descreva os serviços executados ou grave um áudio.');
+  const itens = rel.itens.map(i => ({servico: (i.servico || '').trim(), qtd: numero(i.qtd), un: (i.un || '').trim()})).filter(i => i.servico);
+  const arquivos = [], blobs = [];
+  rel.fotos.forEach((f, i) => { arquivos.push({id: f.id, nome: 'foto-' + (i + 1) + '-' + f.id.slice(0, 8) + '.jpg', mime: 'image/jpeg', tipo: 'foto', origem: f.origem, enviado: false, url: null}); blobs.push({id: f.id, blob: f.blob}); });
+  rel.audios.forEach((a, i) => { arquivos.push({id: a.id, nome: 'audio-' + (i + 1) + '-' + a.id.slice(0, 8) + '.' + extAudio(a.mime), mime: a.mime, tipo: 'audio', dur: a.dur, enviado: false, url: null}); blobs.push({id: a.id, blob: a.blob}); });
+  const meta = {
+    id: rel.id, colabId: atual.id, colabNome: atual.nome, obraId, obra, data, clima: rel.clima, desc, itens,
+    lat: rel.pos ? rel.pos.lat : null, lng: rel.pos ? rel.pos.lng : null, precisao: rel.pos ? rel.pos.precisao : null,
+    criado: new Date().toISOString(), aparelho: aparelho(), arquivos, enviado: false
+  };
+  const bt = $('#bt-salvar-rel'); bt.disabled = true;
+  try{ await IDB.salvarRel(meta, blobs); }
+  catch(e){ bt.disabled = false; return erroRel('Não foi possível guardar o relatório no aparelho. Libere espaço no celular e tente de novo.'); }
+  bt.disabled = false;
+  if (obraId) gravar('pc_ultima_obra_' + atual.id, obraId);
+  descartarRel();
+  const nf = arquivos.filter(a => a.tipo === 'foto').length, na = arquivos.length - nf;
+  $('#ro-nome').textContent = meta.colabNome; $('#ro-obra').textContent = meta.obra; $('#ro-data').textContent = isoBr(meta.data);
+  $('#ro-anexos').textContent = nf + (nf === 1 ? ' foto' : ' fotos') + ' e ' + na + (na === 1 ? ' áudio' : ' áudios');
+  $('#ro-cod').textContent = meta.id.slice(0, 8).toUpperCase();
+  ver('v-rel-ok');
+  await contarPend(); renderStatus(); enviar(false);
 }
 
 /* ---------- envio ---------- */
+async function post(obj, ms){
+  const ctrl = new AbortController(), t = setTimeout(() => ctrl.abort(), ms || 30000);
+  try{
+    const r = await fetch(CONFIG.API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(obj), signal: ctrl.signal});
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.erro || 'servidor');
+    return j;
+  } finally { clearTimeout(t); }
+}
+async function enviarPontos(){
+  let algo = false;
+  for (let i = 0; i < 20; i++){
+    const fila = ler(K.queue, []); if (!fila.length) break;
+    const j = await post({acao:'marcar', token: CONFIG.TOKEN, marcacoes: fila.slice(0, 200)}, 25000);
+    const rec = new Set(j.recebidos || []); if (!rec.size) break;
+    gravar(K.queue, ler(K.queue, []).filter(m => !rec.has(m.id)));
+    const h = ler(K.hist, []); h.forEach(x => { if (rec.has(x.id)) x.enviado = true; }); gravar(K.hist, h);
+    algo = true;
+  }
+  return algo;
+}
+async function enviarRelatorios(){
+  let algo = false, lista;
+  try{ lista = (await IDB.all('rel')).filter(r => !r.enviado).sort((a, b) => a.criado.localeCompare(b.criado)); }catch(e){ return false; }
+  for (const r of lista){
+    for (const a of r.arquivos){
+      if (a.enviado) continue;
+      const reg = await IDB.get('arq', a.id);
+      if (!reg){ a.enviado = true; a.perdido = true; await IDB.put('rel', r); continue; }
+      const dados = await b64(reg.blob);
+      const j = await post({acao:'arquivo', token: CONFIG.TOKEN, relId: r.id, arqId: a.id, nome: a.nome, mime: a.mime, dados, obra: r.obra, data: r.data, colabNome: r.colabNome}, 120000);
+      a.enviado = true; a.url = j.url; await IDB.put('rel', r); algo = true;
+      renderStatus();
+    }
+    await post({acao:'relatorio', token: CONFIG.TOKEN, rel: r}, 30000);
+    r.enviado = true; r.enviadoEm = new Date().toISOString(); await IDB.put('rel', r);
+    for (const a of r.arquivos){ try{ await IDB.del('arq', a.id); }catch(e){} }
+    algo = true; await contarPend(); renderStatus();
+  }
+  return algo;
+}
+async function contarPend(){ try{ relPend = (await IDB.all('rel')).filter(r => !r.enviado).length; }catch(e){ relPend = 0; } }
 function renderStatus(){
-  const n = ler(K.queue, []).length, s = ler(K.sync, null), bt = $('#bt-status');
+  const n = ler(K.queue, []).length + relPend, s = ler(K.sync, null), bt = $('#bt-status');
   bt.classList.toggle('pend', n > 0);
   if (enviando) $('#st-a').textContent = 'Enviando…';
   else if (n > 0) $('#st-a').textContent = n + (n === 1 ? ' pendente' : ' pendentes');
   else $('#st-a').textContent = 'Tudo enviado';
-  $('#st-b').textContent = !configurado() ? 'Não configurado' : falhou ? 'Sem conexão' : (s ? 'Último envio ' + hora(new Date(s)) : 'Nunca enviado');
+  $('#st-b').textContent = !configurado() ? 'Não configurado' : falhou ? 'Sem conexão' : (s ? 'Sincronizado às ' + hora(new Date(s)) : 'Nunca sincronizado');
 }
 async function enviar(manual){
   if (enviando) return;
   if (!configurado()){ if (manual) toast('App não configurado'); renderStatus(); return; }
-  baixarEquipe();
-  const fila = ler(K.queue, []);
-  if (!fila.length){ falhou = false; renderStatus(); if (manual) toast('Nada pendente'); return; }
   enviando = true; renderStatus();
+  let algo = false;
   try{
-    const ctrl = new AbortController(), t = setTimeout(() => ctrl.abort(), 25000);
-    const r = await fetch(CONFIG.API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({acao:'marcar', token:CONFIG.TOKEN, marcacoes: fila.slice(0, 200)}), signal: ctrl.signal});
-    clearTimeout(t);
-    const j = await r.json();
-    if (!j.ok) throw new Error(j.erro || 'servidor');
-    const rec = new Set(j.recebidos || []);
-    gravar(K.queue, ler(K.queue, []).filter(m => !rec.has(m.id)));
-    const h = ler(K.hist, []); h.forEach(x => { if (rec.has(x.id)) x.enviado = true; }); gravar(K.hist, h);
-    gravar(K.sync, new Date().toISOString()); falhou = false;
-    if (manual) toast('Registros enviados');
-  }catch(e){ falhou = true; if (manual) toast('Sem conexão. Os registros continuam guardados.'); }
-  finally{ enviando = false; renderStatus(); }
-  if (!falhou && ler(K.queue, []).length) enviar(false);
+    const conectou = ler(K.me, null) ? await atualizarPerfil() : true;
+    algo = (await enviarPontos()) || algo;
+    algo = (await enviarRelatorios()) || algo;
+    if (algo) gravar(K.sync, new Date().toISOString());
+    falhou = !conectou && !algo;
+    if (manual) toast(falhou ? 'Sem conexão. Os registros continuam guardados no aparelho.' : algo ? 'Registros enviados' : 'Nada pendente', 3000);
+  }catch(e){ falhou = true; if (manual) toast('Sem conexão. Os registros continuam guardados no aparelho.', 3500); }
+  finally{ enviando = false; await contarPend(); renderStatus(); }
 }
 
 /* ---------- histórico e backup ---------- */
-function abrirHist(){
-  const h = ler(K.hist, []).slice(-60).reverse(), ul = $('#lista-hist'); ul.textContent = '';
+async function abrirHist(){
+  const ulr = $('#lista-rels'); ulr.textContent = '';
+  let rels = [];
+  const me = ler(K.me, null), meuId = me ? me.id : '__ninguem';
+  try{ rels = (await IDB.all('rel')).filter(r => r.colabId === meuId).sort((a, b) => b.criado.localeCompare(a.criado)).slice(0, 30); }catch(e){}
+  $('#rels-vazio').hidden = rels.length > 0;
+  rels.forEach(r => {
+    const li = document.createElement('li'), d = document.createElement('div'); d.className = 'item';
+    const n = document.createElement('span'); n.className = 'nome'; n.textContent = r.obra;
+    const s = document.createElement('span'); s.className = 'sub'; s.textContent = r.colabNome + ', serviço de ' + isoBr(r.data);
+    const env = r.arquivos.filter(a => a.enviado).length;
+    const g = document.createElement('span'); g.className = 'tag ' + (r.enviado ? 'ok' : 'pd');
+    g.textContent = r.enviado ? 'Enviado' : 'Aguardando envio' + (r.arquivos.length ? ' (' + env + ' de ' + r.arquivos.length + ' anexos enviados)' : '');
+    d.append(n, s, g); li.append(d); ulr.append(li);
+  });
+  const h = ler(K.hist, []).filter(m => m.colabId === meuId).slice(-60).reverse(), ul = $('#lista-hist'); ul.textContent = '';
   $('#hist-vazio').hidden = h.length > 0;
   h.forEach(m => {
     const li = document.createElement('li'), d = document.createElement('div'); d.className = 'item';
@@ -371,10 +794,10 @@ function abrirHist(){
     const g = document.createElement('span'); g.className = 'tag ' + (m.enviado ? 'ok' : 'pd'); g.textContent = m.enviado ? 'Enviado' : 'Aguardando envio';
     d.append(n, s, g); li.append(d); ul.append(li);
   });
-  volta = 'v-equipe'; ver('v-hist');
+  volta = 'v-inicio'; ver('v-hist');
 }
 function exportar(){
-  const h = ler(K.hist, []);
+  const me = ler(K.me, null), h = ler(K.hist, []).filter(m => me && m.colabId === me.id);
   const lim = v => String(v === null || v === undefined ? '' : v).replace(/[;\r\n]/g, ' ');
   const linhas = ['codigo;colaborador;tipo;data_hora_aparelho;latitude;longitude;precisao_m;observacao;enviado']
     .concat(h.map(m => [m.id, m.colabNome, nomeTipo(m.tipo), completo(new Date(m.horaAparelho)), m.lat, m.lng, m.precisao, m.obs, m.enviado ? 'sim' : 'não'].map(lim).join(';')));
@@ -383,6 +806,12 @@ function exportar(){
   a.download = 'ponto-backup-' + aparelho() + '-' + new Date().toISOString().slice(0, 10) + '.csv';
   document.body.append(a); a.click(); a.remove();
 }
+async function limparAntigos(){
+  try{
+    const limite = Date.now() - 60 * 86400000;
+    for (const r of await IDB.all('rel')) if (r.enviado && new Date(r.enviadoEm || r.criado).getTime() < limite) await IDB.del('rel', r.id);
+  }catch(e){}
+}
 
 /* ---------- eventos ---------- */
 $('#bt-pin').addEventListener('click', confirmarPin);
@@ -390,18 +819,40 @@ $('#pin').addEventListener('keydown', e => { if (e.key === 'Enter') confirmarPin
 $('#bt-gps-agora').addEventListener('click', () => registrar(melhor));
 $('#bt-gps-sem').addEventListener('click', () => registrar(null));
 $('#bt-gps-cancelar').addEventListener('click', () => { pararGps(); ver('v-tipo'); });
-$('#bt-ok').addEventListener('click', () => { atual = null; renderEquipe(); ver('v-equipe'); });
+document.querySelectorAll('[data-concluir]').forEach(b => b.addEventListener('click', () => { atual = null; renderInicio(); ver('v-inicio'); }));
 $('#bt-enviar').addEventListener('click', () => enviar(true));
 $('#bt-status').addEventListener('click', () => enviar(true));
-$('#bt-hist').addEventListener('click', abrirHist);
+$('#bt-hist').addEventListener('click', () => { if (rel && relTemConteudo() && !confirm('Sair e descartar o relatório que está sendo preenchido?')) return; descartarRel(); abrirHist(); });
 $('#bt-exportar').addEventListener('click', exportar);
-document.querySelectorAll('[data-voltar]').forEach(b => b.addEventListener('click', () => { renderEquipe(); ver(volta); }));
+document.querySelectorAll('[data-voltar]').forEach(b => b.addEventListener('click', () => { renderInicio(); ver(volta); }));
+$('#bt-entrar').addEventListener('click', entrar);
+$('#lg-pin').addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
+$('#bt-continuar').addEventListener('click', () => abrirPin(ler(K.me, null)));
+$('#bt-sair').addEventListener('click', sair);
+
+$('#bt-abrir-rel').addEventListener('click', abrirRel);
+$('#bt-rel-voltar').addEventListener('click', () => {
+  if (relTemConteudo() && !confirm('Sair e descartar o relatório que está sendo preenchido?')) return;
+  descartarRel(); ver('v-tipo');
+});
+$('#rel-obra').addEventListener('change', e => { $('#rel-obra-outra').hidden = e.target.value !== '__outra'; if (e.target.value === '__outra') $('#rel-obra-outra').focus(); });
+$('#bt-add-item').addEventListener('click', () => { rel.itens.push({servico:'', qtd:'', un:''}); renderItens(); const ins = $('#rel-itens').querySelectorAll('input'); if (ins.length) ins[ins.length - 3].focus(); });
+$('#bt-foto-cam').addEventListener('click', () => $('#in-cam').click());
+$('#bt-foto-gal').addEventListener('click', () => $('#in-gal').click());
+$('#in-cam').addEventListener('change', e => { addFotos(Array.from(e.target.files), 'camera'); e.target.value = ''; });
+$('#in-gal').addEventListener('change', e => { addFotos(Array.from(e.target.files), 'galeria'); e.target.value = ''; });
+$('#bt-gravar').addEventListener('click', gravarAudio);
+$('#bt-salvar-rel').addEventListener('click', salvarRel);
+
 window.addEventListener('online', () => enviar(false));
 document.addEventListener('visibilitychange', () => { if (!document.hidden) enviar(false); });
 
+localStorage.removeItem(K.team);
 tique(); setInterval(tique, 1000);
-renderEquipe(); renderStatus(); enviar(false);
-setInterval(() => { if (ler(K.queue, []).length) enviar(false); }, 60000);
+renderInicio(); renderStatus();
+contarPend().then(renderStatus).then(() => enviar(false));
+limparAntigos();
+setInterval(() => { if (ler(K.queue, []).length || relPend) enviar(false); }, 60000);
 if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
