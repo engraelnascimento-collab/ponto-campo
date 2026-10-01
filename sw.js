@@ -1,6 +1,6 @@
 // Ponto de Campo — guarda o app no aparelho para abrir sem internet.
 // Ao alterar o index.html, troque a versão abaixo (v1 -> v2) para os celulares atualizarem.
-const VERSAO = 'ponto-v3';
+const VERSAO = 'ponto-v4';
 const FONTES = VERSAO + '-fontes';
 const ARQUIVOS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 

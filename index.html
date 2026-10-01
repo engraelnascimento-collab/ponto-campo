@@ -10,263 +10,209 @@
 <title>Ponto de Campo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#EEF0EC; --card:#FFFFFF; --ink:#1B2420; --muted:#5A6560; --line:#CBD1CA;
-  --sinal:#F2B705; --verde:#1E6B45; --ferrugem:#A2401F; --faixa:#1B2420;
+  --sinal:#F2B705; --verde:#1E7A4C; --vermelho:#C0392B; --azul:#1F5F8B; --faixa:#1B2420;
   --txt:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --cond:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){
-  :root{--bg:#141A17;--card:#1D2521;--ink:#E9EDE8;--muted:#9AA59F;--line:#33403A;--verde:#3FA474;--ferrugem:#D9693F;--faixa:#0C110E}
+  :root{--bg:#141A17;--card:#1D2521;--ink:#E9EDE8;--muted:#9AA59F;--line:#33403A;--faixa:#0C110E}
 }
 *,*::before,*::after{box-sizing:inherit}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--txt);font-size:17px;line-height:1.45}
-button,input,textarea,select{font:inherit;color:inherit}
-button{cursor:pointer}
-button:disabled{opacity:.5;cursor:default}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--txt);font-size:18px;line-height:1.4}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:disabled{opacity:.35;cursor:default}
 :focus-visible{outline:3px solid var(--sinal);outline-offset:2px}
 [hidden]{display:none!important}
 
-.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;
-  background:var(--faixa);color:#F4F6F2;padding:10px 16px;border-bottom:4px solid var(--sinal)}
-.marca{font-family:var(--cond);font-weight:700;font-size:1.35rem;letter-spacing:.01em}
-.status{border:1px solid rgba(255,255,255,.25);background:transparent;color:#F4F6F2;border-radius:6px;padding:6px 10px;text-align:right;line-height:1.15;min-height:44px}
-.status b{display:block;font-weight:600;font-size:.95rem}
-.status small{font-size:.78rem;opacity:.8}
-.status.pend{border-color:var(--sinal)}
-.status.pend b{color:var(--sinal)}
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;
+  background:var(--faixa);color:#F4F6F2;padding:8px 14px;border-bottom:4px solid var(--sinal);min-height:60px}
+.marca{font-family:var(--cond);font-weight:700;font-size:1.3rem}
+.nuvem{position:relative;background:transparent;border:0;font-size:2rem;line-height:1;width:56px;height:48px;color:#fff}
+.badge{position:absolute;top:0;right:0;background:var(--sinal);color:#1B2420;font-weight:700;font-size:.85rem;min-width:24px;height:24px;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:0 6px}
 
-main{max-width:560px;margin:0 auto;padding:16px 16px 110px}
-h2{font-family:var(--cond);font-weight:700;font-size:1.6rem;margin:20px 0 10px;line-height:1.1}
-h3{font-family:var(--cond);font-weight:700;font-size:1.3rem;margin:22px 0 6px;line-height:1.1}
-.divisa{border:0;border-top:2px dashed var(--line);margin:26px 0 4px}
+main{max-width:520px;margin:0 auto;padding:14px 14px 40px}
+h2{font-family:var(--cond);font-weight:700;font-size:1.6rem;margin:16px 0 8px;line-height:1.1}
+.voltar{background:var(--card);border:2px solid var(--line);border-radius:12px;width:64px;height:56px;font-size:1.8rem;line-height:1}
 
-.placa{background:var(--sinal);color:#1B2420;border-radius:8px;padding:14px 18px 12px;box-shadow:inset 0 0 0 3px #1B2420, inset 0 0 0 6px var(--sinal)}
-.placa .hora{font-family:var(--cond);font-weight:700;font-size:4.2rem;line-height:1;font-variant-numeric:tabular-nums}
-.placa .data{font-weight:600;margin-top:4px}
+.placa{background:var(--sinal);color:#1B2420;border-radius:10px;padding:10px 16px;box-shadow:inset 0 0 0 3px #1B2420, inset 0 0 0 6px var(--sinal);display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.placa .hora{font-family:var(--cond);font-weight:700;font-size:3.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.placa .data{font-weight:700;font-size:1.1rem}
 
-.lista{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.item{width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-height:64px;display:flex;flex-direction:column;justify-content:center}
-.item .nome{font-weight:600;font-size:1.1rem}
-.item .sub{color:var(--muted);font-size:.9rem}
-.item .tag{font-size:.8rem;font-weight:600}
-.item .tag.ok{color:var(--verde)}
-.item .tag.pd{color:var(--ferrugem)}
+.quem{display:flex;align-items:center;gap:12px;margin:14px 0}
+.avatar{width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--cond);font-weight:700;font-size:1.8rem;flex:none}
+.quem b{display:block;font-size:1.3rem;line-height:1.15}
+.quem small{color:var(--muted);font-size:.95rem}
 
-.aviso{background:var(--card);border-left:5px solid var(--sinal);padding:12px 14px;border-radius:4px}
-.erro{color:var(--ferrugem);font-weight:600}
-.dica{color:var(--muted);font-size:.9rem;margin:6px 0 0}
-label,.rotulo{display:block;font-weight:600;margin:16px 0 6px}
-input[type=password],input[type=text],input[type=date],textarea,select{width:100%;background:var(--card);border:2px solid var(--line);border-radius:8px;padding:12px 14px;min-height:50px}
-input#pin{font-size:1.8rem;letter-spacing:.35em;text-align:center}
-textarea{min-height:64px;resize:vertical}
-#rel-desc{min-height:130px}
+.mega{width:100%;border:0;border-radius:18px;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  font-family:var(--cond);font-weight:700;font-size:1.9rem;letter-spacing:.03em;color:#fff;margin-top:12px;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.mega .ico{font-size:3.6rem;line-height:1}
+.mega:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.mega.ponto{background:var(--azul)}
+.mega.servico{background:var(--verde)}
+.mega.enviar{background:var(--verde);min-height:110px}
 
-.btn{display:block;width:100%;border:0;border-radius:8px;padding:14px 16px;min-height:56px;font-weight:600;font-size:1.05rem;margin-top:12px;text-align:center}
+.hoje{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hoje span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:700;font-size:1.05rem}
+.bloq{text-align:center;font-size:5rem;margin-top:20px}
+.engrenagem{display:block;margin:34px auto 0;background:transparent;border:0;font-size:1.4rem;opacity:.45;width:56px;height:48px}
+
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.tile{border:3px solid var(--line);background:var(--card);border-radius:16px;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-family:var(--cond);font-weight:700;font-size:1.4rem}
+.tile .ico{font-size:3.2rem;line-height:1}
+.tile.sug{grid-column:1 / -1;min-height:170px;border-color:var(--sinal);background:var(--sinal);color:#1B2420;font-size:1.9rem}
+.tile.sug .ico{font-size:4.4rem}
+@media (prefers-reduced-motion:no-preference){.tile.sug{animation:chama 1.8s ease-in-out infinite}}
+@keyframes chama{50%{box-shadow:0 0 0 8px rgba(242,183,5,.35)}}
+
+.espera{text-align:center;padding-top:20px}
+.espera .ico{font-size:5rem}
+.alvo{width:140px;height:140px;margin:16px auto;border-radius:50%;border:6px solid var(--sinal);position:relative}
+.alvo::after{content:"";position:absolute;inset:46px;border-radius:50%;background:var(--sinal)}
+@media (prefers-reduced-motion:no-preference){.alvo{animation:pulso 1.4s ease-in-out infinite}}
+@keyframes pulso{50%{transform:scale(.88);opacity:.7}}
+.barra{height:16px;border-radius:8px;background:var(--line);overflow:hidden;margin:16px 0}
+.barra i{display:block;height:100%;width:0;background:var(--sinal);transition:width .9s linear}
+
+.feito{text-align:center;padding-top:30px}
+.check{width:200px;height:200px;margin:0 auto;border-radius:50%;background:var(--verde);color:#fff;display:flex;align-items:center;justify-content:center;font-size:7rem;line-height:1}
+.feito .ico{font-size:3rem;margin-top:16px}
+.feito .hr{font-family:var(--cond);font-weight:700;font-size:3rem}
+
+.obra{background:var(--card);border-left:8px solid var(--sinal);border-radius:8px;padding:10px 14px;margin:12px 0;font-weight:700;font-size:1.2rem}
+.fotos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.foto{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;border:2px solid var(--line);background:var(--card);padding:0}
+.foto img{width:100%;height:100%;object-fit:cover;display:block}
+.foto .lixo{position:absolute;top:4px;right:4px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.foto.conf::after{content:"🗑️";position:absolute;inset:0;background:rgba(192,57,43,.85);display:flex;align-items:center;justify-content:center;font-size:3rem}
+.acoes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.acao{border:0;border-radius:16px;min-height:120px;color:#fff;font-size:3.4rem;line-height:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.acao small{font-family:var(--cond);font-weight:700;font-size:1.2rem}
+.acao.cam{background:var(--azul)}
+.acao.mic{background:var(--ink);color:var(--bg)}
+.acao.mic.gravando{background:var(--vermelho);color:#fff}
+@media (prefers-reduced-motion:no-preference){.acao.mic.gravando{animation:pulsa 1s ease-in-out infinite}}
+@keyframes pulsa{50%{filter:brightness(1.25)}}
+.audios{display:grid;gap:8px;margin-top:12px}
+.aud{display:grid;grid-template-columns:72px 1fr 64px;gap:8px;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:6px}
+.aud button{height:56px;border-radius:10px;border:0;font-size:1.6rem;background:var(--bg)}
+.aud .t{font-weight:700;font-size:1.2rem;text-align:center}
+.aud.conf{border-color:var(--vermelho)}
+.aud.conf .del{background:var(--vermelho);color:#fff}
+.clima{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.cl{border:3px solid var(--line);background:var(--card);border-radius:12px;min-height:76px;font-size:2.2rem;line-height:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.cl small{font-size:.75rem;font-weight:600;color:var(--muted)}
+.cl[aria-pressed=true]{border-color:var(--ink);background:var(--sinal)}
+.cl[aria-pressed=true] small{color:#1B2420}
+.texto-bt{display:block;margin:16px auto 0;background:transparent;border:2px dashed var(--line);border-radius:10px;padding:10px 16px;font-weight:600;color:var(--muted)}
+textarea,input[type=text],input[type=password]{width:100%;background:var(--card);border:2px solid var(--line);border-radius:10px;padding:12px 14px;min-height:52px}
+textarea{min-height:110px;margin-top:10px}
+
+label{display:block;font-weight:600;margin:14px 0 6px}
+.dica{color:var(--muted);font-size:.92rem}
+.erro{color:var(--vermelho);font-weight:700}
+.btn{display:block;width:100%;border:0;border-radius:10px;padding:14px;min-height:56px;font-weight:700;margin-top:12px}
 .btn.primario{background:var(--ink);color:var(--bg)}
 .btn.sec{background:transparent;border:2px solid var(--line)}
-.btn.destaque{background:var(--sinal);color:#1B2420;border:0}
-.btn.voltar{background:transparent;border:0;padding:8px 0;min-height:44px;width:auto;margin:0;color:var(--muted)}
-.btn.gravando{background:var(--ferrugem);color:#fff;border-color:var(--ferrugem)}
-.dupla{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.dupla .btn{margin-top:8px}
-
-.tipos{display:grid;gap:10px;margin-top:6px}
-.tipo{border:2px solid var(--line);background:var(--card);border-radius:8px;min-height:70px;padding:12px 16px;text-align:left;font-family:var(--cond);font-weight:700;font-size:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.tipo small{font-family:var(--txt);font-weight:600;font-size:.8rem;color:var(--muted)}
-.tipo.sug{border-color:var(--ink);box-shadow:inset 6px 0 0 var(--sinal)}
-.tipo.sug small{color:var(--ink)}
-
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;min-height:44px;font-weight:600}
-.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-
-.linha-item{display:grid;grid-template-columns:1fr 76px 64px 44px;gap:6px;margin-bottom:8px}
-.linha-item input{min-height:48px;padding:10px}
-.x{border:2px solid var(--line);background:transparent;border-radius:8px;font-size:1.3rem;line-height:1}
-
-.miniaturas{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
-.mini{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--line);aspect-ratio:1;background:var(--card)}
-.mini img{width:100%;height:100%;object-fit:cover;display:block}
-.mini .x{position:absolute;top:4px;right:4px;width:36px;height:36px;background:rgba(0,0,0,.65);color:#fff;border:0}
-.mini .orig{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);color:#fff;font-size:.72rem;padding:2px 6px}
-.audio{display:grid;grid-template-columns:1fr 44px;gap:8px;align-items:center;margin-bottom:8px}
-.audio audio{width:100%}
-
-.gps{text-align:center;padding-top:24px}
-.gps .alvo{width:120px;height:120px;margin:0 auto 14px;border-radius:50%;border:4px solid var(--sinal);position:relative}
-.gps .alvo::after{content:"";position:absolute;inset:40px;border-radius:50%;background:var(--sinal)}
-@media (prefers-reduced-motion:no-preference){.gps .alvo{animation:pulso 1.6s ease-in-out infinite}}
-@keyframes pulso{50%{transform:scale(.9);opacity:.7}}
-.gps .prec{font-family:var(--cond);font-weight:700;font-size:1.7rem}
-.gps .seg{color:var(--muted)}
-
-.comp{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.comp .cab{background:var(--verde);color:#fff;padding:14px 16px;font-family:var(--cond);font-weight:700;font-size:1.5rem}
-.comp dl{margin:0;padding:6px 16px 12px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
-.comp dt{color:var(--muted)}
-.comp dd{margin:0;font-weight:600;overflow-wrap:anywhere}
-.comp .nota{padding:0 16px 14px;color:var(--muted);font-size:.92rem}
-
-.rodape{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);
-  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;justify-content:center}
-.rodape .btn{margin:0;max-width:270px;min-height:50px}
-.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font-weight:600;max-width:90%;z-index:10}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.lista li{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:.95rem}
+.ok{color:var(--verde);font-weight:700}.pd{color:var(--vermelho);font-weight:700}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-weight:700;max-width:90%;z-index:10;font-size:1.3rem}
 </style>
 </head>
 <body>
 <header class="topo">
   <div class="marca">Ponto de Campo</div>
-  <button id="bt-status" class="status" type="button" aria-live="polite"><b id="st-a">…</b><small id="st-b"></small></button>
+  <button id="bt-nuvem" class="nuvem" type="button" aria-label="Situação do envio"><span id="nv-ico">☁️</span><span id="nv-num" class="badge" hidden></span></button>
 </header>
 
 <main>
-  <section id="v-inicio" class="vista">
-    <div class="placa"><div class="hora" id="rel-hora">--:--</div><div class="data" id="rel-data-hoje"></div></div>
-    <p id="nao-config" class="aviso" hidden>O app ainda não foi configurado. O responsável precisa informar o endereço da planilha no arquivo index.html.</p>
-    <div id="bloco-login" hidden>
-      <h2>Entrar neste aparelho</h2>
-      <p class="dica">Use o ID e o PIN fornecidos pelo responsável. A internet só é necessária neste primeiro acesso.</p>
-      <label for="lg-id">Seu ID</label>
-      <input id="lg-id" type="text" inputmode="numeric" autocomplete="off" maxlength="20">
-      <label for="lg-pin">PIN</label>
-      <input id="lg-pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12">
-      <p id="lg-erro" class="erro" hidden></p>
-      <button id="bt-entrar" class="btn primario" type="button">Entrar</button>
+  <!-- Configuração do aparelho: feita pelo responsável -->
+  <section id="v-login" class="vista" hidden>
+    <h2>Configurar este aparelho</h2>
+    <p class="dica">Tela preenchida pelo responsável, uma única vez, com internet. Depois disso o colaborador só usa os botões.</p>
+    <p id="nao-config" class="erro" hidden>O app ainda não foi configurado (endereço da planilha).</p>
+    <label for="lg-id">ID do colaborador</label>
+    <input id="lg-id" type="text" inputmode="numeric" autocomplete="off" maxlength="20">
+    <label for="lg-pin">PIN</label>
+    <input id="lg-pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12">
+    <p id="lg-erro" class="erro" hidden></p>
+    <button id="bt-entrar" class="btn primario" type="button">Entrar</button>
+  </section>
+
+  <!-- Tela inicial -->
+  <section id="v-inicio" class="vista" hidden>
+    <div class="placa"><div class="hora" id="hora">--:--</div><div class="data" id="data"></div></div>
+    <div class="quem"><span class="avatar" id="ini-letra" aria-hidden="true"></span><div><b id="ini-nome"></b><small id="ini-obra"></small></div></div>
+    <div id="ini-bloq" class="bloq" hidden aria-label="Acesso desativado">⛔</div>
+    <div id="ini-botoes">
+      <button id="bt-ponto" class="mega ponto" type="button"><span class="ico" aria-hidden="true">🕒</span>PONTO</button>
+      <button id="bt-servico" class="mega servico" type="button"><span class="ico" aria-hidden="true">📷</span>SERVIÇO</button>
     </div>
-    <div id="bloco-user" hidden>
-      <h2 id="ini-nome"></h2>
-      <p class="dica" id="ini-ult"></p>
-      <p id="ini-bloq" class="aviso" hidden>Seu acesso foi desativado. Procure o responsável pela equipe.</p>
-      <button id="bt-continuar" class="btn primario" type="button">Registrar ponto ou relatório</button>
-      <button id="bt-sair" class="btn voltar" type="button">Sair deste aparelho</button>
-    </div>
+    <div class="hoje" id="hoje" aria-label="Pontos de hoje"></div>
+    <button id="bt-config" class="engrenagem" type="button" aria-label="Área do responsável">⚙️</button>
   </section>
 
-  <section id="v-pin" class="vista" hidden>
-    <button class="btn voltar" data-voltar type="button">Voltar</button>
-    <h2 id="pin-nome"></h2>
-    <label for="pin">Digite seu PIN</label>
-    <input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12">
-    <p id="pin-erro" class="erro" hidden>PIN incorreto. Confira com o responsável pela equipe.</p>
-    <button id="bt-pin" class="btn primario" type="button">Confirmar</button>
+  <!-- Escolha do ponto -->
+  <section id="v-ponto" class="vista" hidden>
+    <button class="voltar" data-inicio type="button" aria-label="Voltar">⬅️</button>
+    <div class="tiles" id="tiles"></div>
   </section>
 
-  <section id="v-tipo" class="vista" hidden>
-    <button class="btn voltar" data-voltar type="button">Voltar</button>
-    <h2 id="tipo-nome"></h2>
-    <h3>Registrar ponto</h3>
-    <label for="obs">Local ou observação (opcional)</label>
-    <textarea id="obs" maxlength="200" placeholder="Ex.: obra da Rua A, trecho da drenagem"></textarea>
-    <p class="rotulo">O que você está registrando?</p>
-    <div class="tipos" id="tipos"></div>
-    <hr class="divisa">
-    <h3>Serviço executado</h3>
-    <p class="dica">Informe o que foi feito na obra, com fotos e áudio. Serve para o diário de obra e a medição.</p>
-    <button id="bt-abrir-rel" class="btn destaque" type="button">Fazer relatório de serviço</button>
-  </section>
-
-  <section id="v-gps" class="vista gps" hidden>
+  <!-- Buscando localização -->
+  <section id="v-gps" class="vista espera" hidden>
+    <div class="ico" id="gps-ico" aria-hidden="true"></div>
     <div class="alvo" aria-hidden="true"></div>
-    <div class="prec" id="gps-prec">Aguardando o primeiro sinal</div>
-    <p class="seg" id="gps-msg">Procurando sinal de GPS. Fique em local aberto, longe de telhado ou laje.</p>
-    <p class="seg" id="gps-tempo">0 s</p>
-    <button id="bt-gps-agora" class="btn primario" type="button" hidden>Registrar com esta precisão</button>
-    <button id="bt-gps-sem" class="btn sec" type="button" hidden>Registrar sem localização</button>
-    <button id="bt-gps-cancelar" class="btn voltar" type="button">Cancelar</button>
+    <div class="ico" aria-label="Buscando localização">📍</div>
+    <div class="barra"><i id="gps-barra"></i></div>
+    <button class="voltar" id="bt-gps-cancelar" type="button" aria-label="Cancelar">⬅️</button>
   </section>
 
-  <section id="v-ok" class="vista" hidden>
-    <div class="comp">
-      <div class="cab" id="ok-tipo"></div>
-      <dl>
-        <dt>Colaborador</dt><dd id="ok-nome"></dd>
-        <dt>Data e hora</dt><dd id="ok-hora"></dd>
-        <dt>Local</dt><dd id="ok-local"></dd>
-        <dt>Código</dt><dd id="ok-cod"></dd>
-      </dl>
-      <p class="nota">Guardado neste aparelho. Será enviado automaticamente quando houver internet.</p>
-    </div>
-    <button class="btn primario" data-concluir type="button">Concluir</button>
+  <!-- Confirmação -->
+  <section id="v-feito" class="vista feito" hidden>
+    <div class="check" aria-label="Salvo">✔</div>
+    <div class="ico" id="feito-ico" aria-hidden="true"></div>
+    <div class="hr" id="feito-hora"></div>
+    <button class="voltar" data-inicio type="button" aria-label="Voltar ao início" style="margin-top:20px">🏠</button>
   </section>
 
-  <section id="v-rel" class="vista" hidden>
-    <button id="bt-rel-voltar" class="btn voltar" type="button">Voltar</button>
-    <h2>Relatório de serviço</h2>
-    <p class="dica" id="rel-nome"></p>
-
-    <label for="rel-obra">Obra</label>
-    <select id="rel-obra"></select>
-    <input id="rel-obra-outra" type="text" maxlength="100" placeholder="Nome da obra" aria-label="Nome da obra" hidden>
-
-    <label for="rel-data">Data do serviço</label>
-    <input id="rel-data" type="date">
-
-    <p class="rotulo">Clima</p>
-    <div class="chips" id="rel-clima"></div>
-
-    <label for="rel-desc">Serviços executados</label>
-    <textarea id="rel-desc" maxlength="4000" placeholder="Ex.: assentamento de meio-fio na Rua B, lado direito, da estaca 3 à 7."></textarea>
-    <p class="dica">Para ditar em vez de digitar, toque no microfone do teclado.</p>
-
-    <p class="rotulo">Quantidades executadas (opcional)</p>
-    <div id="rel-itens"></div>
-    <button id="bt-add-item" class="btn sec" type="button">Adicionar quantidade</button>
-
-    <p class="rotulo">Fotos</p>
-    <div class="miniaturas" id="rel-fotos"></div>
-    <div class="dupla">
-      <button id="bt-foto-cam" class="btn sec" type="button">Tirar foto</button>
-      <button id="bt-foto-gal" class="btn sec" type="button">Da galeria</button>
+  <!-- Relatório de serviço -->
+  <section id="v-servico" class="vista" hidden>
+    <button class="voltar" data-inicio type="button" aria-label="Voltar">⬅️</button>
+    <div class="obra" id="sv-obra"></div>
+    <div class="fotos" id="sv-fotos"></div>
+    <div class="acoes">
+      <button id="bt-cam" class="acao cam" type="button" aria-label="Tirar foto">📷<small>FOTO</small></button>
+      <button id="bt-mic" class="acao mic" type="button" aria-label="Gravar áudio"><span id="mic-ico">🎤</span><small id="mic-txt">FALAR</small></button>
     </div>
+    <div class="audios" id="sv-audios"></div>
+    <div class="clima" id="sv-clima" aria-label="Clima"></div>
+    <button id="bt-texto" class="texto-bt" type="button">✏️ Escrever (opcional)</button>
+    <textarea id="sv-desc" maxlength="4000" placeholder="Descreva o serviço, se quiser" hidden></textarea>
+    <button id="bt-enviar-sv" class="mega enviar" type="button" aria-label="Enviar relatório" disabled><span class="ico" aria-hidden="true">✅</span>PRONTO</button>
     <input type="file" id="in-cam" accept="image/*" capture="environment" hidden>
-    <input type="file" id="in-gal" accept="image/*" multiple hidden>
-
-    <p class="rotulo">Áudios</p>
-    <div id="rel-audios"></div>
-    <button id="bt-gravar" class="btn sec" type="button">Gravar áudio</button>
-
-    <p class="dica" id="rel-gps"></p>
-    <p id="rel-erro" class="erro" hidden></p>
-    <button id="bt-salvar-rel" class="btn primario" type="button">Salvar relatório</button>
   </section>
 
-  <section id="v-rel-ok" class="vista" hidden>
-    <div class="comp">
-      <div class="cab">Relatório salvo</div>
-      <dl>
-        <dt>Colaborador</dt><dd id="ro-nome"></dd>
-        <dt>Obra</dt><dd id="ro-obra"></dd>
-        <dt>Data do serviço</dt><dd id="ro-data"></dd>
-        <dt>Anexos</dt><dd id="ro-anexos"></dd>
-        <dt>Código</dt><dd id="ro-cod"></dd>
-      </dl>
-      <p class="nota">Guardado neste aparelho. Fotos e áudios serão enviados quando houver internet; com sinal fraco, o envio pode levar alguns minutos.</p>
-    </div>
-    <button class="btn primario" data-concluir type="button">Concluir</button>
-  </section>
-
-  <section id="v-hist" class="vista" hidden>
-    <button class="btn voltar" data-voltar type="button">Voltar</button>
-    <h2>Registros neste aparelho</h2>
-    <h3>Relatórios de serviço</h3>
-    <ul id="lista-rels" class="lista"></ul>
-    <p id="rels-vazio" class="dica" hidden>Nenhum relatório feito neste aparelho.</p>
-    <h3>Ponto</h3>
-    <ul id="lista-hist" class="lista"></ul>
-    <p id="hist-vazio" class="dica" hidden>Nenhum ponto registrado neste aparelho.</p>
+  <!-- Área do responsável -->
+  <section id="v-config" class="vista" hidden>
+    <button class="voltar" data-inicio type="button" aria-label="Voltar">⬅️</button>
+    <h2>Área do responsável</h2>
+    <p id="cf-status"></p>
+    <button id="bt-sync" class="btn primario" type="button">Enviar agora</button>
+    <h2>Relatórios deste aparelho</h2>
+    <ul class="lista" id="cf-rels"></ul>
+    <h2>Pontos deste aparelho</h2>
+    <ul class="lista" id="cf-pontos"></ul>
     <button id="bt-exportar" class="btn sec" type="button">Exportar backup do ponto (CSV)</button>
+    <button id="bt-sair" class="btn sec" type="button">Desconectar colaborador deste aparelho</button>
   </section>
 </main>
-
-<nav class="rodape">
-  <button id="bt-enviar" class="btn sec" type="button">Enviar agora</button>
-  <button id="bt-hist" class="btn sec" type="button">Histórico</button>
-</nav>
 <div id="toast" class="toast" role="status" hidden></div>
 
 <script>
@@ -280,20 +226,26 @@ const CONFIG = {
 };
 /* ========================== */
 
-const K = {team:'pc_equipe', me:'pc_usuario', obras:'pc_obras', queue:'pc_fila', hist:'pc_hist', dev:'pc_aparelho', seq:'pc_seq', last:'pc_ultima', sync:'pc_ultimo_envio'};
+const K = {team:'pc_equipe', me:'pc_usuario', obras:'pc_obras', queue:'pc_fila', hist:'pc_hist', dev:'pc_aparelho', seq:'pc_seq', last:'pc_ultima', sync:'pc_ultimo_envio', draft:'pc_rascunho'};
 const TIPOS = [
-  {id:'entrada', nome:'Entrada'},
-  {id:'saida_intervalo', nome:'Saída para intervalo'},
-  {id:'retorno_intervalo', nome:'Retorno do intervalo'},
-  {id:'saida', nome:'Saída'}
+  {id:'entrada',           nome:'CHEGUEI',  ico:'☀️'},
+  {id:'saida_intervalo',   nome:'ALMOÇO',   ico:'🍽️'},
+  {id:'retorno_intervalo', nome:'VOLTEI',   ico:'🔨'},
+  {id:'saida',             nome:'FUI EMBORA', ico:'🏠'}
 ];
-const CLIMAS = ['Bom', 'Nublado', 'Chuva', 'Chuva impediu o serviço'];
-const MAX_FOTOS = 10, MAX_AUDIOS = 3, MAX_SEG_AUDIO = 300;
+const CLIMAS = [
+  {v:'Bom', ico:'☀️', r:'Sol'},
+  {v:'Nublado', ico:'⛅', r:'Nublado'},
+  {v:'Chuva', ico:'🌧️', r:'Chuva'},
+  {v:'Chuva impediu o serviço', ico:'⛔', r:'Parou'}
+];
+const MAX_FOTOS = 12, MAX_AUDIOS = 5, MAX_SEG_AUDIO = 300;
 
 const $ = s => document.querySelector(s);
-let atual = null, tipoSel = null, watchId = null, melhor = null, gpsTimer = null, gpsInicio = 0, negado = false, registrando = false;
-let enviando = false, falhou = false, volta = 'v-inicio', relPend = 0;
-let rel = null, relWatch = null, gravador = null, gravInicio = 0, gravTimer = null;
+let me = null, tipoSel = null, watchId = null, melhor = null, gpsTimer = null, gpsInicio = 0, registrando = false;
+let enviando = false, falhou = false, relPend = 0, voltaTimer = null;
+let draft = null, svWatch = null, gravador = null, gravInicio = 0, gravTimer = null, tocando = null;
+const urls = {};
 
 /* ---------- utilidades ---------- */
 function ler(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
@@ -309,24 +261,32 @@ async function sha256(s){
 }
 const pad2 = n => String(n).padStart(2, '0');
 const hora = d => d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-const dataCurta = d => d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
 const completo = d => d.toLocaleString('pt-BR');
 const hojeISO = () => { const d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); };
 const isoBr = s => { const p = String(s).split('-'); return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : s; };
-const nomeTipo = id => (TIPOS.find(t => t.id === id) || {nome:id}).nome;
+const tipoDe = id => TIPOS.find(t => t.id === id) || {nome:id, ico:'🕒'};
 const mesmoDia = (a, b) => a.toDateString() === b.toDateString();
 const configurado = () => /^https:\/\//.test(CONFIG.API_URL);
-function toast(msg, ms){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => t.hidden = true, ms || 2600); }
-function ver(id){ document.querySelectorAll('.vista').forEach(s => s.hidden = s.id !== id); window.scrollTo(0,0); }
+const mmss = s => Math.floor(s / 60) + ':' + pad2(s % 60);
+function toast(msg, ms){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => t.hidden = true, ms || 2500); }
+function ver(id){ clearTimeout(voltaTimer); document.querySelectorAll('.vista').forEach(s => s.hidden = s.id !== id); window.scrollTo(0,0); }
 function b64(blob){ return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = () => rej(r.error); r.readAsDataURL(blob); }); }
-function numero(v){
-  let s = String(v == null ? '' : v).trim(); if (!s) return null;
-  if (s.indexOf(',') >= 0) s = s.replace(/\./g, '').replace(',', '.');
-  const n = parseFloat(s); return isNaN(n) ? null : n;
-}
 function extAudio(m){ return /mp4|m4a|aac/.test(m) ? 'm4a' : /ogg/.test(m) ? 'ogg' : 'webm'; }
+function sinalOk(){
+  try{ if (navigator.vibrate) navigator.vibrate([120, 60, 120]); }catch(e){}
+  try{
+    const C = window.AudioContext || window.webkitAudioContext; if (!C) return;
+    const ctx = new C(), t0 = ctx.currentTime;
+    [[880, 0], [1320, 0.16]].forEach(([f, d]) => {
+      const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = f; o.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.25, t0 + d); g.gain.exponentialRampToValueAtTime(0.001, t0 + d + 0.15);
+      o.start(t0 + d); o.stop(t0 + d + 0.16);
+    });
+    setTimeout(() => ctx.close(), 600);
+  }catch(e){}
+}
 
-/* ---------- banco local para relatórios (fotos e áudios) ---------- */
+/* ---------- banco local (relatórios, fotos e áudios) ---------- */
 const IDB = {
   db: null,
   open(){
@@ -352,34 +312,16 @@ const IDB = {
   put(s, v){ return this.tx(s, 'readwrite', o => o.put(v)); },
   get(s, k){ return this.tx(s, 'readonly', o => o.get(k)); },
   all(s){ return this.tx(s, 'readonly', o => o.getAll()); },
-  del(s, k){ return this.tx(s, 'readwrite', o => o.delete(k)); },
-  async salvarRel(meta, blobs){
-    const d = await this.open();
-    return new Promise((res, rej) => {
-      const t = d.transaction(['rel', 'arq'], 'readwrite');
-      blobs.forEach(b => t.objectStore('arq').put(b));
-      t.objectStore('rel').put(meta);
-      t.oncomplete = () => res(); t.onerror = () => rej(t.error); t.onabort = () => rej(t.error);
-    });
-  }
+  del(s, k){ return this.tx(s, 'readwrite', o => o.delete(k)); }
 };
 
 /* ---------- relógio ---------- */
-function tique(){ const d = new Date(); $('#rel-hora').textContent = hora(d); const t = d.toLocaleDateString('pt-BR',{weekday:'long', day:'2-digit', month:'long'}); $('#rel-data-hoje').textContent = t.charAt(0).toUpperCase() + t.slice(1); }
-
-/* ---------- equipe ---------- */
-function ultimaDe(id){ const h = ler(K.hist, []); for (let i = h.length-1; i >= 0; i--) if (h[i].colabId === id) return h[i]; return null; }
-function renderInicio(){
-  const me = ler(K.me, null);
-  $('#nao-config').hidden = configurado();
-  $('#bloco-login').hidden = !!me; $('#bloco-user').hidden = !me;
-  if (!me) return;
-  $('#ini-nome').textContent = me.nome;
-  const u = ultimaDe(me.id);
-  if (u){ const d = new Date(u.horaAparelho); $('#ini-ult').textContent = 'Último ponto: ' + nomeTipo(u.tipo) + ' às ' + hora(d) + (mesmoDia(d, new Date()) ? '' : ' de ' + dataCurta(d)); }
-  else $('#ini-ult').textContent = 'Nenhum ponto registrado neste aparelho.';
-  $('#ini-bloq').hidden = !me.bloqueado; $('#bt-continuar').disabled = !!me.bloqueado;
+function tique(){
+  const d = new Date(); $('#hora').textContent = hora(d);
+  $('#data').textContent = d.toLocaleDateString('pt-BR', {weekday:'short', day:'2-digit', month:'2-digit'}).replace('.', '');
 }
+
+/* ---------- configuração do aparelho (responsável) ---------- */
 function erroLogin(msg){ const e = $('#lg-erro'); e.textContent = msg; e.hidden = false; }
 async function entrar(){
   const id = $('#lg-id').value.trim(), pin = $('#lg-pin').value.trim();
@@ -389,206 +331,176 @@ async function entrar(){
   const bt = $('#bt-entrar'); bt.disabled = true; bt.textContent = 'Entrando…';
   try{
     const j = await post({acao:'login', token: CONFIG.TOKEN, id, pin}, 20000);
-    gravar(K.me, j.colab);
-    if (Array.isArray(j.obras)) gravar(K.obras, j.obras);
-    gravar(K.sync, new Date().toISOString()); falhou = false;
+    const colab = Object.assign({}, j.colab, {obra: j.obra || null});
+    gravar(K.me, colab); gravar(K.sync, new Date().toISOString()); falhou = false;
     $('#lg-id').value = ''; $('#lg-pin').value = '';
-    renderInicio(); renderStatus();
+    iniciarTela(); toast('Aparelho configurado para ' + colab.nome, 3500);
   }catch(e){
     const m = e && e.message;
-    erroLogin(m === 'login' ? 'ID ou PIN incorretos.' : m === 'bloqueado' ? 'Muitas tentativas erradas. Aguarde 15 minutos e tente de novo.' : 'Sem conexão. O primeiro acesso precisa de internet.');
+    erroLogin(m === 'login' ? 'ID ou PIN incorretos.' : m === 'bloqueado' ? 'Muitas tentativas erradas. Aguarde 15 minutos.' : 'Sem conexão. A configuração precisa de internet.');
   }finally{ bt.disabled = false; bt.textContent = 'Entrar'; }
 }
 async function sair(){
-  const me = ler(K.me, null); if (!me) return;
+  if (!me) return;
   await contarPend();
-  if (ler(K.queue, []).length || relPend){ alert('Há registros ainda não enviados neste aparelho. Conecte à internet e toque em “Enviar agora” antes de sair.'); return; }
-  if (!confirm('Sair deste aparelho? Para voltar a usar, será preciso entrar de novo com ID e PIN, com internet.')) return;
+  if (ler(K.queue, []).length || relPend){ alert('Há registros ainda não enviados. Conecte à internet e toque em “Enviar agora” antes de desconectar.'); return; }
+  const pin = prompt('Para desconectar, digite o PIN do colaborador:');
+  if (pin === null) return;
+  if ((await sha256(me.id + ':' + pin.trim())) !== me.pinHash){ alert('PIN incorreto.'); return; }
+  await descartarRascunho();
   localStorage.removeItem(K.me); localStorage.removeItem(K.hist);
   try{ for (const r of await IDB.all('rel')) await IDB.del('rel', r.id); }catch(e){}
-  renderInicio();
+  iniciarTela();
 }
 async function atualizarPerfil(){
-  const me = ler(K.me, null); if (!me || !configurado()) return false;
+  if (!me || !configurado()) return false;
   try{
     const j = await post({acao:'perfil', token: CONFIG.TOKEN, id: me.id, pinHash: me.pinHash}, 20000);
-    if (j.ativo === false){ me.bloqueado = true; gravar(K.me, me); }
-    else if (j.pinMudou){ localStorage.removeItem(K.me); toast('Seu PIN foi alterado. Entre novamente.', 4000); }
-    else { me.bloqueado = false; if (j.nome) me.nome = j.nome; gravar(K.me, me); if (Array.isArray(j.obras)) gravar(K.obras, j.obras); }
-    gravar(K.sync, new Date().toISOString());
-    renderInicio();
+    if (j.ativo === false){ me.bloqueado = true; }
+    else if (j.pinMudou){ localStorage.removeItem(K.me); me = null; iniciarTela(); return true; }
+    else { me.bloqueado = false; if (j.nome) me.nome = j.nome; me.obra = j.obra || null; }
+    gravar(K.me, me); gravar(K.sync, new Date().toISOString());
+    if (!$('#v-inicio').hidden) renderInicio();
     return true;
   }catch(e){ return false; }
 }
 
-/* ---------- PIN ---------- */
-function abrirPin(c){ if (!c || c.bloqueado) return; atual = c; $('#pin-nome').textContent = c.nome; $('#pin').value = ''; $('#pin-erro').hidden = true; volta = 'v-inicio'; ver('v-pin'); setTimeout(() => $('#pin').focus(), 50); }
-async function confirmarPin(){
-  const pin = $('#pin').value.trim(); if (!pin) return;
-  const h = await sha256(atual.id + ':' + pin);
-  if (h !== atual.pinHash){ $('#pin-erro').hidden = false; $('#pin').value = ''; $('#pin').focus(); return; }
-  abrirTipo();
+/* ---------- tela inicial ---------- */
+function iniciarTela(){
+  me = ler(K.me, null);
+  $('#nao-config').hidden = configurado();
+  if (!me){ ver('v-login'); return; }
+  renderInicio(); ver('v-inicio');
+}
+function renderInicio(){
+  if (!me) return;
+  $('#ini-letra').textContent = (me.nome || '?').trim().charAt(0).toUpperCase();
+  $('#ini-nome').textContent = me.nome;
+  $('#ini-obra').textContent = me.obra ? me.obra.nome : 'Obra não definida';
+  const bloq = !!me.bloqueado;
+  $('#ini-bloq').hidden = !bloq; $('#ini-botoes').hidden = bloq;
+  const box = $('#hoje'); box.textContent = '';
+  const hoje = new Date();
+  ler(K.hist, []).filter(m => m.colabId === me.id && mesmoDia(new Date(m.horaAparelho), hoje)).forEach(m => {
+    const s = document.createElement('span'); s.textContent = tipoDe(m.tipo).ico + ' ' + hora(new Date(m.horaAparelho)); box.append(s);
+  });
 }
 
-/* ---------- escolha: ponto ou relatório ---------- */
-function abrirTipo(){
-  $('#tipo-nome').textContent = atual.nome; $('#obs').value = '';
-  const u = ultimaDe(atual.id);
+/* ---------- ponto ---------- */
+function ultimaDe(id){ const h = ler(K.hist, []); for (let i = h.length-1; i >= 0; i--) if (h[i].colabId === id) return h[i]; return null; }
+function abrirPonto(){
+  const u = ultimaDe(me.id);
   let sug = 'entrada';
   if (u && mesmoDia(new Date(u.horaAparelho), new Date())){ const i = TIPOS.findIndex(t => t.id === u.tipo); sug = TIPOS[(i + 1) % TIPOS.length].id; }
-  const box = $('#tipos'); box.textContent = '';
-  TIPOS.forEach(t => {
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'tipo' + (t.id === sug ? ' sug' : '');
-    b.append(document.createTextNode(t.nome));
-    if (t.id === sug){ const s = document.createElement('small'); s.textContent = 'Próximo esperado'; b.append(s); }
+  const box = $('#tiles'); box.textContent = '';
+  const ordem = [TIPOS.find(t => t.id === sug)].concat(TIPOS.filter(t => t.id !== sug));
+  ordem.forEach(t => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'tile' + (t.id === sug ? ' sug' : '');
+    const i = document.createElement('span'); i.className = 'ico'; i.textContent = t.ico; i.setAttribute('aria-hidden', 'true');
+    b.append(i, document.createTextNode(t.nome));
     b.addEventListener('click', () => { tipoSel = t.id; iniciarGps(); });
     box.append(b);
   });
-  volta = 'v-inicio'; ver('v-tipo');
+  ver('v-ponto');
 }
-
-/* ---------- GPS do ponto ---------- */
 function iniciarGps(){
-  ver('v-gps'); melhor = null; negado = false; registrando = false; gpsInicio = Date.now();
-  $('#gps-msg').textContent = 'Procurando sinal de GPS. Fique em local aberto, longe de telhado ou laje.';
-  atualizarGps();
-  if (!('geolocation' in navigator)){ negado = true; $('#gps-msg').textContent = 'Este aparelho não oferece localização.'; atualizarGps(); return; }
+  ver('v-gps'); $('#gps-ico').textContent = tipoDe(tipoSel).ico;
+  melhor = null; registrando = false; gpsInicio = Date.now(); $('#gps-barra').style.width = '0';
+  if (!('geolocation' in navigator)){ setTimeout(() => registrar(null), 800); return; }
   watchId = navigator.geolocation.watchPosition(p => {
     if (!melhor || p.coords.accuracy < melhor.coords.accuracy) melhor = p;
-    atualizarGps();
     if (melhor.coords.accuracy <= 25) registrar(melhor);
-  }, err => {
-    if (err.code === 1){ negado = true; $('#gps-msg').textContent = 'A localização está bloqueada. Permita o acesso à localização nas configurações do navegador e ative o GPS do aparelho.'; }
-    atualizarGps();
-  }, {enableHighAccuracy:true, maximumAge:0, timeout:120000});
-  gpsTimer = setInterval(atualizarGps, 1000);
+  }, err => { if (err.code === 1) setTimeout(() => registrar(null), 1200); },
+  {enableHighAccuracy:true, maximumAge:0, timeout:120000});
+  gpsTimer = setInterval(() => {
+    const s = (Date.now() - gpsInicio) / 1000;
+    $('#gps-barra').style.width = Math.min(100, s / 60 * 100) + '%';
+    if (s >= 30 && melhor) registrar(melhor);   // 30 s: fica com a melhor posição obtida
+    else if (s >= 60) registrar(null);          // 60 s sem sinal: salva sem localização
+  }, 1000);
 }
 function pararGps(){ if (watchId !== null) navigator.geolocation.clearWatch(watchId); watchId = null; clearInterval(gpsTimer); }
-function atualizarGps(){
-  const seg = Math.floor((Date.now() - gpsInicio) / 1000);
-  $('#gps-tempo').textContent = 'Tempo de busca: ' + seg + ' s';
-  if (melhor){ $('#gps-prec').textContent = 'Precisão: ' + Math.round(melhor.coords.accuracy) + ' m'; $('#bt-gps-agora').hidden = false; }
-  else { $('#gps-prec').textContent = 'Aguardando o primeiro sinal'; $('#bt-gps-agora').hidden = true; }
-  $('#bt-gps-sem').hidden = !(negado || (!melhor && seg >= 45));
-}
-
-/* ---------- registro de ponto ---------- */
 function registrar(pos){
   if (registrando) return; registrando = true; pararGps();
   const agora = new Date(), ult = ler(K.last, 0), seq = ler(K.seq, 0) + 1;
   const m = {
-    id: uid(), colabId: atual.id, colabNome: atual.nome, tipo: tipoSel,
+    id: uid(), colabId: me.id, colabNome: me.nome, tipo: tipoSel,
     horaAparelho: agora.toISOString(),
     lat: pos ? +pos.coords.latitude.toFixed(6) : null,
     lng: pos ? +pos.coords.longitude.toFixed(6) : null,
     precisao: pos ? Math.round(pos.coords.accuracy) : null,
     gpsHora: pos ? new Date(pos.timestamp).toISOString() : null,
-    obs: $('#obs').value.trim().slice(0, 200),
+    obs: me.obra ? me.obra.nome : '',
     aparelho: aparelho(), seq: seq,
     relogioSuspeito: agora.getTime() < ult - 60000
   };
   const fila = ler(K.queue, []); fila.push(m);
   const hist = ler(K.hist, []); hist.push(Object.assign({enviado:false}, m));
   if (!gravar(K.queue, fila) || !gravar(K.hist, hist.slice(-500))){
-    alert('Não foi possível guardar o registro: a memória do navegador está cheia. Exporte o backup e avise o responsável.');
-    registrando = false; ver('v-inicio'); return;
+    alert('Memória do aparelho cheia. Avise o responsável.'); registrando = false; iniciarTela(); return;
   }
   gravar(K.seq, seq); gravar(K.last, Math.max(ult, agora.getTime()));
-  const d = new Date(m.horaAparelho);
-  $('#ok-tipo').textContent = nomeTipo(m.tipo) + ' registrada';
-  $('#ok-nome').textContent = m.colabNome;
-  $('#ok-hora').textContent = completo(d);
-  $('#ok-local').textContent = m.lat !== null ? (m.lat + ', ' + m.lng + ' (± ' + m.precisao + ' m)') : 'Sem localização';
-  $('#ok-cod').textContent = m.id.slice(0, 8).toUpperCase();
-  ver('v-ok');
-  renderStatus(); enviar(false);
+  mostrarFeito(tipoDe(m.tipo).ico, hora(agora));
+  renderNuvem(); enviar(false);
+}
+function mostrarFeito(ico, txt){
+  $('#feito-ico').textContent = ico; $('#feito-hora').textContent = txt;
+  ver('v-feito'); sinalOk();
+  voltaTimer = setTimeout(() => { renderInicio(); ver('v-inicio'); }, 6000);
 }
 
-/* ---------- relatório de serviço ---------- */
-function abrirRel(){
-  if (!window.indexedDB){ toast('Este navegador não permite guardar relatórios. Use o Chrome atualizado.', 4000); return; }
-  rel = {id: uid(), fotos: [], audios: [], itens: [], clima: '', pos: null};
-  $('#rel-nome').textContent = atual.nome;
-  const sel = $('#rel-obra'); sel.textContent = '';
-  sel.add(new Option('Selecione a obra', ''));
-  ler(K.obras, []).forEach(o => sel.add(new Option(o.nome, o.id)));
-  sel.add(new Option('Outra (digitar o nome)', '__outra'));
-  const ultObra = ler('pc_ultima_obra_' + atual.id, '');
-  if (ultObra && Array.from(sel.options).some(o => o.value === ultObra)) sel.value = ultObra;
-  $('#rel-obra-outra').value = ''; $('#rel-obra-outra').hidden = sel.value !== '__outra';
-  $('#rel-data').value = hojeISO(); $('#rel-data').max = hojeISO();
-  $('#rel-desc').value = ''; $('#rel-erro').hidden = true;
-  renderClima(); renderItens(); renderFotos(); renderAudios(); renderBotaoGravar();
-  ver('v-rel'); gpsRel();
+/* ---------- serviço (RDO) com rascunho salvo a cada passo ---------- */
+function salvarRascunho(){ gravar(K.draft, draft); }
+async function abrirServico(){
+  if (!me || me.bloqueado) return;
+  if (!window.indexedDB){ alert('Este navegador não permite guardar fotos. Use o Chrome atualizado.'); return; }
+  draft = ler(K.draft, null);
+  if (!draft || draft.colabId !== me.id){ draft = {id: uid(), colabId: me.id, fotos: [], audios: [], clima: '', desc: '', pos: null}; salvarRascunho(); }
+  $('#sv-obra').textContent = '📍 ' + (me.obra ? me.obra.nome : 'Obra não definida');
+  $('#sv-desc').value = draft.desc || ''; $('#sv-desc').hidden = !draft.desc; $('#bt-texto').hidden = !!draft.desc;
+  ver('v-servico');
+  await renderFotos(); await renderAudios(); renderClima(); renderMic(); atualizarPronto();
+  gpsServico();
 }
-function relTemConteudo(){ return rel && (rel.fotos.length || rel.audios.length || rel.itens.length || $('#rel-desc').value.trim()); }
-function descartarRel(){
-  if (gravador){ try{ gravador.stop(); }catch(e){} }
-  pararGpsRel();
-  if (rel){ rel.fotos.concat(rel.audios).forEach(x => URL.revokeObjectURL(x.url)); }
-  rel = null;
+async function urlDe(id){
+  if (urls[id]) return urls[id];
+  const r = await IDB.get('arq', id); if (!r) return null;
+  urls[id] = URL.createObjectURL(r.blob); return urls[id];
 }
-function erroRel(msg){ const e = $('#rel-erro'); e.textContent = msg; e.hidden = false; e.scrollIntoView({block:'center'}); }
+function liberarUrl(id){ if (urls[id]){ URL.revokeObjectURL(urls[id]); delete urls[id]; } }
+function atualizarPronto(){ $('#bt-enviar-sv').disabled = !(draft && (draft.fotos.length || draft.audios.length)) || !!gravador; }
 
-function gpsRel(){
-  const out = $('#rel-gps');
-  if (!('geolocation' in navigator)){ out.textContent = 'Este aparelho não oferece localização.'; return; }
-  out.textContent = 'Buscando a localização da obra…';
+function gpsServico(){
+  if (!('geolocation' in navigator) || svWatch !== null) return;
   const inicio = Date.now();
-  relWatch = navigator.geolocation.watchPosition(p => {
-    if (!rel) return;
-    if (!rel.pos || p.coords.accuracy < rel.pos.precisao)
-      rel.pos = {lat: +p.coords.latitude.toFixed(6), lng: +p.coords.longitude.toFixed(6), precisao: Math.round(p.coords.accuracy)};
-    out.textContent = 'Localização registrada (± ' + rel.pos.precisao + ' m).';
-    if (rel.pos.precisao <= 25 || Date.now() - inicio > 90000) pararGpsRel();
-  }, err => {
-    out.textContent = err.code === 1 ? 'Localização bloqueada: o relatório será salvo sem ela.' : 'Buscando a localização da obra…';
-  }, {enableHighAccuracy:true, maximumAge:60000, timeout:120000});
+  svWatch = navigator.geolocation.watchPosition(p => {
+    if (!draft) return;
+    if (!draft.pos || p.coords.accuracy < draft.pos.precisao){
+      draft.pos = {lat: +p.coords.latitude.toFixed(6), lng: +p.coords.longitude.toFixed(6), precisao: Math.round(p.coords.accuracy)};
+      salvarRascunho();
+    }
+    if (draft.pos.precisao <= 25 || Date.now() - inicio > 90000) pararGpsServico();
+  }, () => {}, {enableHighAccuracy:true, maximumAge:60000, timeout:120000});
 }
-function pararGpsRel(){ if (relWatch !== null){ navigator.geolocation.clearWatch(relWatch); relWatch = null; } }
+function pararGpsServico(){ if (svWatch !== null){ navigator.geolocation.clearWatch(svWatch); svWatch = null; } }
 
-function renderClima(){
-  const box = $('#rel-clima'); box.textContent = '';
-  CLIMAS.forEach(c => {
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = c;
-    b.setAttribute('aria-pressed', rel.clima === c ? 'true' : 'false');
-    b.addEventListener('click', () => { rel.clima = rel.clima === c ? '' : c; renderClima(); });
-    box.append(b);
-  });
-}
-function campo(valor, dica){ const i = document.createElement('input'); i.type = 'text'; i.value = valor || ''; i.placeholder = dica; i.setAttribute('aria-label', dica); return i; }
-function botaoX(rotulo, fn){ const b = document.createElement('button'); b.type = 'button'; b.className = 'x'; b.textContent = '×'; b.setAttribute('aria-label', rotulo); b.addEventListener('click', fn); return b; }
-function renderItens(){
-  const box = $('#rel-itens'); box.textContent = '';
-  rel.itens.forEach((it, i) => {
-    const row = document.createElement('div'); row.className = 'linha-item';
-    const s = campo(it.servico, 'Serviço (ex.: meio-fio)'); s.maxLength = 120; s.addEventListener('input', () => it.servico = s.value);
-    const q = campo(it.qtd, 'Qtd'); q.inputMode = 'decimal'; q.addEventListener('input', () => it.qtd = q.value);
-    const u = campo(it.un, 'Un.'); u.maxLength = 10; u.addEventListener('input', () => it.un = u.value);
-    row.append(s, q, u, botaoX('Remover quantidade', () => { rel.itens.splice(i, 1); renderItens(); }));
-    box.append(row);
-  });
-}
-
-/* fotos: reduz o tamanho e grava obra, data, hora e local na imagem */
+/* fotos: reduz e grava obra, data, hora e local na imagem */
 function carregarImg(file){
   return new Promise((res, rej) => { const img = new Image(); const u = URL.createObjectURL(file);
     img.onload = () => { URL.revokeObjectURL(u); res(img); }; img.onerror = () => { URL.revokeObjectURL(u); rej(new Error('img')); }; img.src = u; });
 }
-async function carimbar(file, origem){
+async function carimbar(file){
   let src;
   try{ src = await createImageBitmap(file, {imageOrientation:'from-image'}); }catch(e){ src = await carregarImg(file); }
   const w0 = src.width, h0 = src.height, esc = Math.min(1, 1600 / Math.max(w0, h0));
   const w = Math.round(w0 * esc), h = Math.round(h0 * esc);
   const c = document.createElement('canvas'); c.width = w; c.height = h;
   const x = c.getContext('2d'); x.drawImage(src, 0, 0, w, h);
-  const obraSel = $('#rel-obra'); const obraTxt = obraSel.value === '__outra' ? $('#rel-obra-outra').value.trim() : (obraSel.value ? obraSel.options[obraSel.selectedIndex].text : '');
-  const quando = origem === 'galeria' ? 'Da galeria, arquivo de ' + completo(new Date(file.lastModified || Date.now())) : completo(new Date());
   const linhas = [
-    obraTxt || 'Obra não informada',
-    quando,
-    rel.pos ? (rel.pos.lat + ', ' + rel.pos.lng + ' (± ' + rel.pos.precisao + ' m)') : 'Sem localização',
-    atual.nome
+    me.obra ? me.obra.nome : 'Obra não definida',
+    completo(new Date()),
+    draft.pos ? (draft.pos.lat + ', ' + draft.pos.lng + ' (± ' + draft.pos.precisao + ' m)') : 'Sem localização',
+    me.nome
   ];
   const fs = Math.max(14, Math.round(Math.min(w, h) * 0.032)), padd = Math.round(fs * 0.6), alt = linhas.length * fs * 1.3 + padd * 2;
   x.fillStyle = 'rgba(0,0,0,0.6)'; x.fillRect(0, h - alt, w, alt);
@@ -596,110 +508,149 @@ async function carimbar(file, origem){
   linhas.forEach((l, i) => { x.fillStyle = i === 0 ? '#F2B705' : '#FFFFFF'; x.fillText(l, padd, h - alt + padd + i * fs * 1.3, w - padd * 2); });
   return new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error('blob')), 'image/jpeg', 0.8));
 }
-async function addFotos(files, origem){
-  for (const f of files){
-    if (!rel) return;
-    if (rel.fotos.length >= MAX_FOTOS){ toast('Limite de ' + MAX_FOTOS + ' fotos por relatório'); break; }
-    toast('Preparando foto…', 8000);
-    try{ const blob = await carimbar(f, origem); rel.fotos.push({id: uid(), blob, origem, url: URL.createObjectURL(blob)}); $('#toast').hidden = true; }
-    catch(e){ toast('Não foi possível ler esta foto.'); }
-  }
-  renderFotos();
+async function novaFoto(file){
+  if (!file || !draft) return;
+  if (draft.fotos.length >= MAX_FOTOS){ toast('📷 ' + MAX_FOTOS + ' ✋'); return; }
+  toast('⏳', 10000);
+  try{
+    const blob = await carimbar(file), id = uid();
+    await IDB.put('arq', {id, blob});
+    draft.fotos.push({id}); salvarRascunho();
+    $('#toast').hidden = true; if (navigator.vibrate) navigator.vibrate(80);
+  }catch(e){ toast('❌ 📷', 3000); }
+  await renderFotos(); atualizarPronto();
 }
-function renderFotos(){
-  const box = $('#rel-fotos'); box.textContent = '';
-  rel.fotos.forEach((f, i) => {
-    const d = document.createElement('div'); d.className = 'mini';
-    const img = document.createElement('img'); img.src = f.url; img.alt = 'Foto ' + (i + 1);
-    const o = document.createElement('span'); o.className = 'orig'; o.textContent = f.origem === 'galeria' ? 'Galeria' : 'Câmera';
-    d.append(img, o, botaoX('Remover foto ' + (i + 1), () => { URL.revokeObjectURL(f.url); rel.fotos.splice(i, 1); renderFotos(); }));
-    box.append(d);
-  });
+async function removerArquivo(lista, id){
+  const i = draft[lista].findIndex(x => x.id === id); if (i < 0) return;
+  draft[lista].splice(i, 1); salvarRascunho(); liberarUrl(id);
+  try{ await IDB.del('arq', id); }catch(e){}
+}
+async function renderFotos(){
+  const box = $('#sv-fotos'); box.textContent = '';
+  for (const [n, f] of draft.fotos.entries()){
+    const u = await urlDe(f.id); if (!u) continue;
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'foto'; b.setAttribute('aria-label', 'Foto ' + (n + 1) + '. Toque duas vezes para apagar');
+    const img = document.createElement('img'); img.src = u; img.alt = '';
+    const l = document.createElement('span'); l.className = 'lixo'; l.textContent = '🗑️'; l.setAttribute('aria-hidden', 'true');
+    b.append(img, l);
+    b.addEventListener('click', async () => {      // 1º toque marca, 2º toque apaga
+      if (b.classList.contains('conf')){ await removerArquivo('fotos', f.id); await renderFotos(); atualizarPronto(); return; }
+      box.querySelectorAll('.conf').forEach(e => e.classList.remove('conf'));
+      b.classList.add('conf'); setTimeout(() => b.classList.remove('conf'), 3000);
+    });
+    box.append(b);
+  }
 }
 
-/* áudio: grava no aparelho, sem precisar de internet */
+/* áudio */
 function mimeAudio(){
   if (!window.MediaRecorder || !navigator.mediaDevices) return null;
   const c = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
   if (MediaRecorder.isTypeSupported) for (const m of c) if (MediaRecorder.isTypeSupported(m)) return m;
   return '';
 }
-function renderBotaoGravar(){
-  const b = $('#bt-gravar');
+function renderMic(){
+  const b = $('#bt-mic');
   if (gravador){
     const s = Math.floor((Date.now() - gravInicio) / 1000);
-    b.textContent = 'Parar gravação (' + Math.floor(s / 60) + ':' + pad2(s % 60) + ' de 5:00)'; b.classList.add('gravando');
+    b.classList.add('gravando'); $('#mic-ico').textContent = '⏹️'; $('#mic-txt').textContent = mmss(s);
+    b.setAttribute('aria-label', 'Parar gravação');
   } else {
-    b.textContent = 'Gravar áudio'; b.classList.remove('gravando');
-    b.disabled = !!rel && rel.audios.length >= MAX_AUDIOS;
+    b.classList.remove('gravando'); $('#mic-ico').textContent = '🎤'; $('#mic-txt').textContent = 'FALAR';
+    b.setAttribute('aria-label', 'Gravar áudio');
+    b.disabled = !!draft && draft.audios.length >= MAX_AUDIOS;
   }
 }
-async function gravarAudio(){
+async function microfone(){
   if (gravador){ gravador.stop(); return; }
-  if (rel.audios.length >= MAX_AUDIOS){ toast('Limite de ' + MAX_AUDIOS + ' áudios por relatório'); return; }
+  if (draft.audios.length >= MAX_AUDIOS) return;
+  pararAudio();
   const mime = mimeAudio();
-  if (mime === null){ erroRel('Este aparelho não permite gravar áudio pelo app.'); return; }
+  if (mime === null){ toast('❌ 🎤', 3000); return; }
   let stream;
   try{ stream = await navigator.mediaDevices.getUserMedia({audio:true}); }
-  catch(e){ erroRel('O microfone está bloqueado. Permita o acesso ao microfone nas configurações do navegador.'); return; }
-  $('#rel-erro').hidden = true;
+  catch(e){ toast('🎤 🚫', 3000); return; }
   const partes = []; let rec;
   try{ rec = new MediaRecorder(stream, mime ? {mimeType: mime, audioBitsPerSecond: 32000} : undefined); }
   catch(e){ rec = new MediaRecorder(stream); }
   rec.ondataavailable = e => { if (e.data && e.data.size) partes.push(e.data); };
-  rec.onstop = () => {
+  rec.onstop = async () => {
     stream.getTracks().forEach(t => t.stop()); clearInterval(gravTimer);
     const tipo = (rec.mimeType || mime || 'audio/webm').split(';')[0];
-    const blob = new Blob(partes, {type: tipo});
-    const dur = Math.round((Date.now() - gravInicio) / 1000);
+    const blob = new Blob(partes, {type: tipo}), dur = Math.round((Date.now() - gravInicio) / 1000);
     gravador = null;
-    if (rel && blob.size > 0){ rel.audios.push({id: uid(), blob, mime: tipo, dur, url: URL.createObjectURL(blob)}); renderAudios(); }
-    renderBotaoGravar();
+    if (draft && blob.size > 0 && dur >= 1){
+      const id = uid();
+      try{ await IDB.put('arq', {id, blob}); draft.audios.push({id, mime: tipo, dur}); salvarRascunho(); if (navigator.vibrate) navigator.vibrate(80); }
+      catch(e){ toast('❌ 🎤', 3000); }
+    }
+    renderMic(); await renderAudios(); atualizarPronto();
   };
-  gravador = rec; gravInicio = Date.now(); rec.start(1000); renderBotaoGravar();
-  gravTimer = setInterval(() => { renderBotaoGravar(); if ((Date.now() - gravInicio) / 1000 >= MAX_SEG_AUDIO && gravador) gravador.stop(); }, 500);
+  gravador = rec; gravInicio = Date.now(); rec.start(1000);
+  if (navigator.vibrate) navigator.vibrate(60);
+  renderMic(); atualizarPronto();
+  gravTimer = setInterval(() => { renderMic(); if ((Date.now() - gravInicio) / 1000 >= MAX_SEG_AUDIO && gravador) gravador.stop(); }, 500);
 }
-function renderAudios(){
-  const box = $('#rel-audios'); box.textContent = '';
-  rel.audios.forEach((a, i) => {
-    const d = document.createElement('div'); d.className = 'audio';
-    const au = document.createElement('audio'); au.controls = true; au.src = a.url; au.setAttribute('aria-label', 'Áudio ' + (i + 1));
-    d.append(au, botaoX('Remover áudio ' + (i + 1), () => { URL.revokeObjectURL(a.url); rel.audios.splice(i, 1); renderAudios(); renderBotaoGravar(); }));
-    box.append(d);
+function pararAudio(){ if (tocando){ tocando.a.pause(); tocando.b.textContent = '▶️'; tocando = null; } }
+async function renderAudios(){
+  const box = $('#sv-audios'); box.textContent = '';
+  for (const [n, a] of draft.audios.entries()){
+    const u = await urlDe(a.id); if (!u) continue;
+    const row = document.createElement('div'); row.className = 'aud';
+    const play = document.createElement('button'); play.type = 'button'; play.textContent = '▶️'; play.setAttribute('aria-label', 'Ouvir áudio ' + (n + 1));
+    const t = document.createElement('span'); t.className = 't'; t.textContent = '🎤 ' + mmss(a.dur || 0);
+    const del = document.createElement('button'); del.type = 'button'; del.className = 'del'; del.textContent = '🗑️'; del.setAttribute('aria-label', 'Apagar áudio ' + (n + 1) + '. Toque duas vezes');
+    play.addEventListener('click', () => {
+      if (tocando && tocando.id === a.id){ pararAudio(); return; }
+      pararAudio(); const au = new Audio(u); tocando = {id: a.id, a: au, b: play}; play.textContent = '⏸️';
+      au.onended = () => pararAudio(); au.play().catch(() => pararAudio());
+    });
+    del.addEventListener('click', async () => {
+      if (row.classList.contains('conf')){ if (tocando && tocando.id === a.id) pararAudio(); await removerArquivo('audios', a.id); await renderAudios(); renderMic(); atualizarPronto(); return; }
+      row.classList.add('conf'); setTimeout(() => row.classList.remove('conf'), 3000);
+    });
+    row.append(play, t, del); box.append(row);
+  }
+}
+
+function renderClima(){
+  const box = $('#sv-clima'); box.textContent = '';
+  CLIMAS.forEach(c => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'cl';
+    b.setAttribute('aria-pressed', draft.clima === c.v ? 'true' : 'false'); b.setAttribute('aria-label', c.v);
+    const i = document.createElement('span'); i.textContent = c.ico; i.setAttribute('aria-hidden', 'true');
+    const s = document.createElement('small'); s.textContent = c.r;
+    b.append(i, s);
+    b.addEventListener('click', () => { draft.clima = draft.clima === c.v ? '' : c.v; salvarRascunho(); renderClima(); });
+    box.append(b);
   });
 }
 
-async function salvarRel(){
-  if (gravador){ toast('Pare a gravação antes de salvar'); return; }
-  const sel = $('#rel-obra'); let obraId = sel.value, obra = '';
-  if (obraId === '__outra'){ obra = $('#rel-obra-outra').value.trim(); obraId = ''; }
-  else if (obraId){ obra = sel.options[sel.selectedIndex].text; }
-  const desc = $('#rel-desc').value.trim(), data = $('#rel-data').value;
-  if (!obra) return erroRel('Informe a obra.');
-  if (!data) return erroRel('Informe a data do serviço.');
-  if (data > hojeISO()) return erroRel('A data do serviço não pode ser futura.');
-  if (!desc && !rel.audios.length) return erroRel('Descreva os serviços executados ou grave um áudio.');
-  const itens = rel.itens.map(i => ({servico: (i.servico || '').trim(), qtd: numero(i.qtd), un: (i.un || '').trim()})).filter(i => i.servico);
-  const arquivos = [], blobs = [];
-  rel.fotos.forEach((f, i) => { arquivos.push({id: f.id, nome: 'foto-' + (i + 1) + '-' + f.id.slice(0, 8) + '.jpg', mime: 'image/jpeg', tipo: 'foto', origem: f.origem, enviado: false, url: null}); blobs.push({id: f.id, blob: f.blob}); });
-  rel.audios.forEach((a, i) => { arquivos.push({id: a.id, nome: 'audio-' + (i + 1) + '-' + a.id.slice(0, 8) + '.' + extAudio(a.mime), mime: a.mime, tipo: 'audio', dur: a.dur, enviado: false, url: null}); blobs.push({id: a.id, blob: a.blob}); });
+async function enviarServico(){
+  if (gravador || !draft || !(draft.fotos.length || draft.audios.length)) return;
+  const bt = $('#bt-enviar-sv'); bt.disabled = true;
+  const arquivos = [];
+  draft.fotos.forEach((f, i) => arquivos.push({id: f.id, nome: 'foto-' + (i + 1) + '-' + f.id.slice(0, 8) + '.jpg', mime: 'image/jpeg', tipo: 'foto', origem: 'camera', enviado: false, url: null}));
+  draft.audios.forEach((a, i) => arquivos.push({id: a.id, nome: 'audio-' + (i + 1) + '-' + a.id.slice(0, 8) + '.' + extAudio(a.mime), mime: a.mime, tipo: 'audio', dur: a.dur, enviado: false, url: null}));
   const meta = {
-    id: rel.id, colabId: atual.id, colabNome: atual.nome, obraId, obra, data, clima: rel.clima, desc, itens,
-    lat: rel.pos ? rel.pos.lat : null, lng: rel.pos ? rel.pos.lng : null, precisao: rel.pos ? rel.pos.precisao : null,
+    id: draft.id, colabId: me.id, colabNome: me.nome,
+    obraId: me.obra ? me.obra.id : '', obra: me.obra ? me.obra.nome : 'Obra não definida',
+    data: hojeISO(), clima: draft.clima, desc: ($('#sv-desc').value || '').trim(), itens: [],
+    lat: draft.pos ? draft.pos.lat : null, lng: draft.pos ? draft.pos.lng : null, precisao: draft.pos ? draft.pos.precisao : null,
     criado: new Date().toISOString(), aparelho: aparelho(), arquivos, enviado: false
   };
-  const bt = $('#bt-salvar-rel'); bt.disabled = true;
-  try{ await IDB.salvarRel(meta, blobs); }
-  catch(e){ bt.disabled = false; return erroRel('Não foi possível guardar o relatório no aparelho. Libere espaço no celular e tente de novo.'); }
-  bt.disabled = false;
-  if (obraId) gravar('pc_ultima_obra_' + atual.id, obraId);
-  descartarRel();
-  const nf = arquivos.filter(a => a.tipo === 'foto').length, na = arquivos.length - nf;
-  $('#ro-nome').textContent = meta.colabNome; $('#ro-obra').textContent = meta.obra; $('#ro-data').textContent = isoBr(meta.data);
-  $('#ro-anexos').textContent = nf + (nf === 1 ? ' foto' : ' fotos') + ' e ' + na + (na === 1 ? ' áudio' : ' áudios');
-  $('#ro-cod').textContent = meta.id.slice(0, 8).toUpperCase();
-  ver('v-rel-ok');
-  await contarPend(); renderStatus(); enviar(false);
+  try{ await IDB.put('rel', meta); }
+  catch(e){ bt.disabled = false; alert('Não foi possível guardar. Memória do aparelho cheia? Avise o responsável.'); return; }
+  pararGpsServico(); pararAudio();
+  arquivos.forEach(a => liberarUrl(a.id));
+  localStorage.removeItem(K.draft); draft = null;
+  mostrarFeito('📷 🎤', hora(new Date()));
+  await contarPend(); renderNuvem(); enviar(false);
+}
+async function descartarRascunho(){
+  const d = ler(K.draft, null); if (!d) return;
+  for (const x of d.fotos.concat(d.audios)){ liberarUrl(x.id); try{ await IDB.del('arq', x.id); }catch(e){} }
+  localStorage.removeItem(K.draft); draft = null;
 }
 
 /* ---------- envio ---------- */
@@ -735,72 +686,67 @@ async function enviarRelatorios(){
       const dados = await b64(reg.blob);
       const j = await post({acao:'arquivo', token: CONFIG.TOKEN, relId: r.id, arqId: a.id, nome: a.nome, mime: a.mime, dados, obra: r.obra, data: r.data, colabNome: r.colabNome}, 120000);
       a.enviado = true; a.url = j.url; await IDB.put('rel', r); algo = true;
-      renderStatus();
     }
     await post({acao:'relatorio', token: CONFIG.TOKEN, rel: r}, 30000);
     r.enviado = true; r.enviadoEm = new Date().toISOString(); await IDB.put('rel', r);
     for (const a of r.arquivos){ try{ await IDB.del('arq', a.id); }catch(e){} }
-    algo = true; await contarPend(); renderStatus();
+    algo = true; await contarPend(); renderNuvem();
   }
   return algo;
 }
 async function contarPend(){ try{ relPend = (await IDB.all('rel')).filter(r => !r.enviado).length; }catch(e){ relPend = 0; } }
-function renderStatus(){
-  const n = ler(K.queue, []).length + relPend, s = ler(K.sync, null), bt = $('#bt-status');
-  bt.classList.toggle('pend', n > 0);
-  if (enviando) $('#st-a').textContent = 'Enviando…';
-  else if (n > 0) $('#st-a').textContent = n + (n === 1 ? ' pendente' : ' pendentes');
-  else $('#st-a').textContent = 'Tudo enviado';
-  $('#st-b').textContent = !configurado() ? 'Não configurado' : falhou ? 'Sem conexão' : (s ? 'Sincronizado às ' + hora(new Date(s)) : 'Nunca sincronizado');
+function renderNuvem(){
+  const n = ler(K.queue, []).length + relPend;
+  $('#nv-ico').textContent = enviando ? '⏳' : n ? '☁️' : '✅';
+  $('#nv-num').hidden = !n; $('#nv-num').textContent = n;
+  $('#bt-nuvem').setAttribute('aria-label', n ? n + ' registros aguardando envio' : 'Tudo enviado');
 }
 async function enviar(manual){
-  if (enviando) return;
-  if (!configurado()){ if (manual) toast('App não configurado'); renderStatus(); return; }
-  enviando = true; renderStatus();
+  if (enviando || !configurado()) return;
+  enviando = true; renderNuvem();
   let algo = false;
   try{
-    const conectou = ler(K.me, null) ? await atualizarPerfil() : true;
+    const conectou = me ? await atualizarPerfil() : true;
     algo = (await enviarPontos()) || algo;
     algo = (await enviarRelatorios()) || algo;
     if (algo) gravar(K.sync, new Date().toISOString());
     falhou = !conectou && !algo;
-    if (manual) toast(falhou ? 'Sem conexão. Os registros continuam guardados no aparelho.' : algo ? 'Registros enviados' : 'Nada pendente', 3000);
-  }catch(e){ falhou = true; if (manual) toast('Sem conexão. Os registros continuam guardados no aparelho.', 3500); }
-  finally{ enviando = false; await contarPend(); renderStatus(); }
+    if (manual) toast(falhou ? '📵' : '✅', 2000);
+  }catch(e){ falhou = true; if (manual) toast('📵', 2000); }
+  finally{ enviando = false; await contarPend(); renderNuvem(); if (!$('#v-config').hidden) abrirConfig(); }
 }
 
-/* ---------- histórico e backup ---------- */
-async function abrirHist(){
-  const ulr = $('#lista-rels'); ulr.textContent = '';
+/* ---------- área do responsável ---------- */
+async function abrirConfig(){
+  await contarPend();
+  const s = ler(K.sync, null), n = ler(K.queue, []).length;
+  $('#cf-status').textContent = (me ? me.nome + ' (ID ' + me.id + '). ' : '') + n + ' ponto(s) e ' + relPend + ' relatório(s) aguardando envio. ' +
+    (s ? 'Última sincronização: ' + completo(new Date(s)) + '.' : 'Nunca sincronizado.') + (falhou ? ' Sem conexão no momento.' : '');
+  const ulr = $('#cf-rels'); ulr.textContent = '';
   let rels = [];
-  const me = ler(K.me, null), meuId = me ? me.id : '__ninguem';
-  try{ rels = (await IDB.all('rel')).filter(r => r.colabId === meuId).sort((a, b) => b.criado.localeCompare(a.criado)).slice(0, 30); }catch(e){}
-  $('#rels-vazio').hidden = rels.length > 0;
+  try{ rels = (await IDB.all('rel')).filter(r => me && r.colabId === me.id).sort((a, b) => b.criado.localeCompare(a.criado)).slice(0, 20); }catch(e){}
+  if (!rels.length){ const li = document.createElement('li'); li.textContent = 'Nenhum.'; ulr.append(li); }
   rels.forEach(r => {
-    const li = document.createElement('li'), d = document.createElement('div'); d.className = 'item';
-    const n = document.createElement('span'); n.className = 'nome'; n.textContent = r.obra;
-    const s = document.createElement('span'); s.className = 'sub'; s.textContent = r.colabNome + ', serviço de ' + isoBr(r.data);
-    const env = r.arquivos.filter(a => a.enviado).length;
-    const g = document.createElement('span'); g.className = 'tag ' + (r.enviado ? 'ok' : 'pd');
-    g.textContent = r.enviado ? 'Enviado' : 'Aguardando envio' + (r.arquivos.length ? ' (' + env + ' de ' + r.arquivos.length + ' anexos enviados)' : '');
-    d.append(n, s, g); li.append(d); ulr.append(li);
+    const li = document.createElement('li'), env = r.arquivos.filter(a => a.enviado).length;
+    const st = document.createElement('span'); st.className = r.enviado ? 'ok' : 'pd';
+    st.textContent = r.enviado ? 'Enviado' : 'Pendente (' + env + '/' + r.arquivos.length + ' anexos)';
+    li.append(document.createTextNode(isoBr(r.data) + ', ' + r.obra + ': '), st); ulr.append(li);
   });
-  const h = ler(K.hist, []).filter(m => m.colabId === meuId).slice(-60).reverse(), ul = $('#lista-hist'); ul.textContent = '';
-  $('#hist-vazio').hidden = h.length > 0;
+  const ul = $('#cf-pontos'); ul.textContent = '';
+  const h = ler(K.hist, []).filter(m => me && m.colabId === me.id).slice(-30).reverse();
+  if (!h.length){ const li = document.createElement('li'); li.textContent = 'Nenhum.'; ul.append(li); }
   h.forEach(m => {
-    const li = document.createElement('li'), d = document.createElement('div'); d.className = 'item';
-    const n = document.createElement('span'); n.className = 'nome'; n.textContent = m.colabNome;
-    const s = document.createElement('span'); s.className = 'sub'; s.textContent = nomeTipo(m.tipo) + ', ' + completo(new Date(m.horaAparelho));
-    const g = document.createElement('span'); g.className = 'tag ' + (m.enviado ? 'ok' : 'pd'); g.textContent = m.enviado ? 'Enviado' : 'Aguardando envio';
-    d.append(n, s, g); li.append(d); ul.append(li);
+    const li = document.createElement('li'), st = document.createElement('span');
+    st.className = m.enviado ? 'ok' : 'pd'; st.textContent = m.enviado ? 'Enviado' : 'Pendente';
+    li.append(document.createTextNode(tipoDe(m.tipo).ico + ' ' + completo(new Date(m.horaAparelho)) + ': '), st); ul.append(li);
   });
-  volta = 'v-inicio'; ver('v-hist');
+  ver('v-config');
 }
 function exportar(){
-  const me = ler(K.me, null), h = ler(K.hist, []).filter(m => me && m.colabId === me.id);
+  const h = ler(K.hist, []).filter(m => me && m.colabId === me.id);
   const lim = v => String(v === null || v === undefined ? '' : v).replace(/[;\r\n]/g, ' ');
-  const linhas = ['codigo;colaborador;tipo;data_hora_aparelho;latitude;longitude;precisao_m;observacao;enviado']
-    .concat(h.map(m => [m.id, m.colabNome, nomeTipo(m.tipo), completo(new Date(m.horaAparelho)), m.lat, m.lng, m.precisao, m.obs, m.enviado ? 'sim' : 'não'].map(lim).join(';')));
+  const linhas = ['codigo;colaborador;tipo;data_hora_aparelho;latitude;longitude;precisao_m;enviado']
+    .concat(h.map(m => [m.id, m.colabNome, tipoDe(m.tipo).nome, completo(new Date(m.horaAparelho)), m.lat, m.lng, m.precisao, m.enviado ? 'sim' : 'não'].map(lim).join(';')));
   const blob = new Blob(['\ufeff' + linhas.join('\n')], {type:'text/csv;charset=utf-8'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
   a.download = 'ponto-backup-' + aparelho() + '-' + new Date().toISOString().slice(0, 10) + '.csv';
@@ -814,43 +760,35 @@ async function limparAntigos(){
 }
 
 /* ---------- eventos ---------- */
-$('#bt-pin').addEventListener('click', confirmarPin);
-$('#pin').addEventListener('keydown', e => { if (e.key === 'Enter') confirmarPin(); });
-$('#bt-gps-agora').addEventListener('click', () => registrar(melhor));
-$('#bt-gps-sem').addEventListener('click', () => registrar(null));
-$('#bt-gps-cancelar').addEventListener('click', () => { pararGps(); ver('v-tipo'); });
-document.querySelectorAll('[data-concluir]').forEach(b => b.addEventListener('click', () => { atual = null; renderInicio(); ver('v-inicio'); }));
-$('#bt-enviar').addEventListener('click', () => enviar(true));
-$('#bt-status').addEventListener('click', () => enviar(true));
-$('#bt-hist').addEventListener('click', () => { if (rel && relTemConteudo() && !confirm('Sair e descartar o relatório que está sendo preenchido?')) return; descartarRel(); abrirHist(); });
-$('#bt-exportar').addEventListener('click', exportar);
-document.querySelectorAll('[data-voltar]').forEach(b => b.addEventListener('click', () => { renderInicio(); ver(volta); }));
 $('#bt-entrar').addEventListener('click', entrar);
 $('#lg-pin').addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
-$('#bt-continuar').addEventListener('click', () => abrirPin(ler(K.me, null)));
+$('#bt-ponto').addEventListener('click', abrirPonto);
+$('#bt-servico').addEventListener('click', abrirServico);
+$('#bt-gps-cancelar').addEventListener('click', () => { pararGps(); ver('v-ponto'); });
+document.querySelectorAll('[data-inicio]').forEach(b => b.addEventListener('click', () => {
+  if (gravador){ try{ gravador.stop(); }catch(e){} }
+  pararAudio(); pararGpsServico();          // o rascunho do serviço continua guardado
+  renderInicio(); ver('v-inicio');
+}));
+$('#bt-cam').addEventListener('click', () => $('#in-cam').click());
+$('#in-cam').addEventListener('change', e => { const f = e.target.files && e.target.files[0]; e.target.value = ''; novaFoto(f); });
+$('#bt-mic').addEventListener('click', microfone);
+$('#bt-texto').addEventListener('click', () => { $('#bt-texto').hidden = true; $('#sv-desc').hidden = false; $('#sv-desc').focus(); });
+$('#sv-desc').addEventListener('input', () => { if (draft){ draft.desc = $('#sv-desc').value; salvarRascunho(); } });
+$('#bt-enviar-sv').addEventListener('click', enviarServico);
+$('#bt-nuvem').addEventListener('click', () => enviar(true));
+$('#bt-config').addEventListener('click', abrirConfig);
+$('#bt-sync').addEventListener('click', () => enviar(true));
+$('#bt-exportar').addEventListener('click', exportar);
 $('#bt-sair').addEventListener('click', sair);
-
-$('#bt-abrir-rel').addEventListener('click', abrirRel);
-$('#bt-rel-voltar').addEventListener('click', () => {
-  if (relTemConteudo() && !confirm('Sair e descartar o relatório que está sendo preenchido?')) return;
-  descartarRel(); ver('v-tipo');
-});
-$('#rel-obra').addEventListener('change', e => { $('#rel-obra-outra').hidden = e.target.value !== '__outra'; if (e.target.value === '__outra') $('#rel-obra-outra').focus(); });
-$('#bt-add-item').addEventListener('click', () => { rel.itens.push({servico:'', qtd:'', un:''}); renderItens(); const ins = $('#rel-itens').querySelectorAll('input'); if (ins.length) ins[ins.length - 3].focus(); });
-$('#bt-foto-cam').addEventListener('click', () => $('#in-cam').click());
-$('#bt-foto-gal').addEventListener('click', () => $('#in-gal').click());
-$('#in-cam').addEventListener('change', e => { addFotos(Array.from(e.target.files), 'camera'); e.target.value = ''; });
-$('#in-gal').addEventListener('change', e => { addFotos(Array.from(e.target.files), 'galeria'); e.target.value = ''; });
-$('#bt-gravar').addEventListener('click', gravarAudio);
-$('#bt-salvar-rel').addEventListener('click', salvarRel);
-
 window.addEventListener('online', () => enviar(false));
 document.addEventListener('visibilitychange', () => { if (!document.hidden) enviar(false); });
 
 localStorage.removeItem(K.team);
 tique(); setInterval(tique, 1000);
-renderInicio(); renderStatus();
-contarPend().then(renderStatus).then(() => enviar(false));
+iniciarTela();
+{ const d = ler(K.draft, null); if (me && !me.bloqueado && d && d.colabId === me.id && (d.fotos.length || d.audios.length)) abrirServico(); }   // reabre o serviço se o app foi recarregado pela câmera
+contarPend().then(renderNuvem).then(() => enviar(false));
 limparAntigos();
 setInterval(() => { if (ler(K.queue, []).length || relPend) enviar(false); }, 60000);
 if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
